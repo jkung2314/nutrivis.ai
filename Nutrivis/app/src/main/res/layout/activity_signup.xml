@@ -22,6 +22,20 @@
             android:src="@drawable/mango" />
 
         <!-- Name Label -->
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="163dp"
+            android:layout_height="wrap_content"
+            android:text="Register with Google!" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="163dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="165dp"
+            android:layout_marginTop="-56dp"
+            android:text="Register with Facebook!" />
+
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

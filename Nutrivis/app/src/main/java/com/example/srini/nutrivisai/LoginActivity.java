@@ -23,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login) Button _loginButton;
     @BindView(R.id.link_signup) TextView _signupLink;
+    //final Button cameraButton = (Button) findViewById(R.id.button4);
+    @BindView(R.id.button6) Button cameraButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,19 @@ public class LoginActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+
+
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // your handler code here
+                Log.d(TAG, "Inside camerabutton handler");
+                Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
+                finish();
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+            }
+        });
+
     }
 
     public void login() {

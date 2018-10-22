@@ -40,16 +40,18 @@ public class DetailActivity extends AppCompatActivity {
         //String collection = i.getStringExtra("collection");
         //String artist = i.getStringExtra("artist");
 
-        TextView titleTV = (TextView) findViewById(R.id.textView15);
-        TextView artistTV = (TextView) findViewById(R.id.textView14);
-        TextView collectionTV = (TextView) findViewById(R.id.textView16);
+        TextView food = (TextView) findViewById(R.id.textView15);
+        TextView calorieCount = (TextView) findViewById(R.id.textView14);
+        TextView date = (TextView) findViewById(R.id.textView16);
+        TextView fatContent = (TextView) findViewById(R.id.textView2);
 
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
 
         String url = "https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg";
         new DownloadImageTask(imageView).execute(url);
-        //titleTV.setText(title);
-        //artistTV.setText(artist);
-        //collectionTV.setText(collection);
+        food.setText("Hot Dog");
+        calorieCount.setText("200");
+        date.setText("10/22/18");
+        fatContent.setText("10g");
     }
 }

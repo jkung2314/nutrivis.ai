@@ -46,7 +46,8 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
 
-       // new DownloadImageTask(imageView).execute(url);
+        String url = "https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg";
+        new DownloadImageTask(imageView).execute(url);
         //titleTV.setText(title);
         //artistTV.setText(artist);
         //collectionTV.setText(collection);

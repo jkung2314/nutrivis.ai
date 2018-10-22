@@ -3,21 +3,45 @@ package com.example.srini.nutrivisai;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int RC_SIGN_IN = 123;
+
+    FirebaseAuth mFirebaseAuth;
+    FirebaseUser mFirebaseUser;
+    String GOOGLE_TOS_URL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+
+
+        if (mFirebaseUser == null){
+            //Not signed in, launch the Sign In Activity
+            startActivity(new Intent(this, AuthUiActivity.class));
+            finish();
+            return;
+        }else {
+            String mUsername = mFirebaseUser.getDisplayName();
+//            String mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+            String mEmailAddress = mFirebaseUser.getEmail();
+            Log.d("USER INFO_______", mUsername+ "   " +mEmailAddress);
+        }
+
         setContentView(R.layout.activity_main);
 
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

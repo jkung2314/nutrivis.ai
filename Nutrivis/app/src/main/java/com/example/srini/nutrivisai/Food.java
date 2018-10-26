@@ -1,10 +1,8 @@
-
+package com.example.srini.nutrivisai;
 
 import android.annotation.SuppressLint;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Food {
 

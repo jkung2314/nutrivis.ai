@@ -17,4 +17,20 @@ public class Food {
     public String toString(){
         return name + "Fat: "+ fatContent + "g, Calories: " + calorieCount + " Scanned on: " + dateScanned;
     }
+
+    public String getName(){
+        return name;
+    }
+
+    public double getFatContent(){
+        return fatContent;
+    }
+
+    public int getCalorieCount(){
+        return calorieCount;
+    }
+
+    public Date getDateScanned(){
+        return dateScanned;
+    }
 }

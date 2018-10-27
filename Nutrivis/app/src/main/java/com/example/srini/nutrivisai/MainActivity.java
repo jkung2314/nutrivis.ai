@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
 
-<<<<<<< HEAD
+
 
         if (mFirebaseUser == null){
             //Not signed in, launch the Sign In Activity
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
-=======
+
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
         listView.setAdapter(adapter);
 
->>>>>>> srini_dev
+
 
     }
 

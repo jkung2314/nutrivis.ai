@@ -19,7 +19,7 @@
             </intent-filter>
 
         </activity>
-<<<<<<< HEAD
+
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme.Dark" />
@@ -30,13 +30,10 @@
             android:name=".AuthUiActivity"
             android:label="@string/title_activity_auth_ui"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-=======
-        <activity android:name="com.example.srini.nutrivisai.LoginActivity" android:theme="@style/AppTheme.Dark" />
-        <activity android:name="com.example.srini.nutrivisai.SignupActivity" android:theme="@style/AppTheme.Dark" />
         <activity android:name="com.example.srini.nutrivisai.DetailActivity"
             android:exported="true">
         </activity>
->>>>>>> srini_dev
+
     </application>
 
 </manifest>

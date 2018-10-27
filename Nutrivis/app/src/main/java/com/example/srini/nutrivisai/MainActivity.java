@@ -1,14 +1,20 @@
 package com.example.srini.nutrivisai;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,7 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    private final Context context = this;
     private static final int RC_SIGN_IN = 123;
 
     FirebaseAuth mFirebaseAuth;
@@ -50,13 +56,25 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.lv);
 
-        ArrayList<String> listItems = new ArrayList<String>();
+        final ArrayList<String> listItems = new ArrayList<String>();
 
         listItems.add("No Items scanned yet");
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent createEventIntent = new Intent(context, DetailActivity.class);
+
+                if(listItems.size()>1) {
+                    startActivity(createEventIntent);
+                }
+            }
+
+        });
 
 
     }

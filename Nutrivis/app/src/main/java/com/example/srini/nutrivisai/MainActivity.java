@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        //startActivity(intent);
 
         ListView listView = findViewById(R.id.lv);
 

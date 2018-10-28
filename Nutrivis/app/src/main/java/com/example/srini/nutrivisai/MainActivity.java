@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -76,6 +77,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context,DetailActivity.class);//change to camera activity
+                startActivity(i);
+            }
+        });
 
     }
 

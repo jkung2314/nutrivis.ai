@@ -2,6 +2,7 @@ package com.example.srini.nutrivisai;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Camera;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context,DetailActivity.class);//change to camera activity
+                Intent i = new Intent(context,CameraActivity.class);//change to camera activity
                 startActivity(i);
             }
         });

@@ -8,11 +8,11 @@ public class Food {
 
     private String name;
     private double fatContent;
-    private int calorieCount;
+    private double calorieCount;
     private String dateScanned;
 
     @SuppressLint("NewApi")
-    public Food(String foodName, double fatContent, int calorieCount){
+    public Food(String foodName, double fatContent, double calorieCount){
         name = foodName;
         this.fatContent = fatContent;
         this.calorieCount = calorieCount;
@@ -34,7 +34,7 @@ public class Food {
         return fatContent;
     }
 
-    public int getCalorieCount(){
+    public double getCalorieCount(){
         return calorieCount;
     }
 

@@ -1,11 +1,14 @@
 package com.example.srini.nutrivisai;
 
+
+import java.util.*;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Camera;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +22,11 @@ import android.widget.ListView;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.*;
+
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -27,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private final Context context = this;
     private static final int RC_SIGN_IN = 123;
 
-    FirebaseAuth mFirebaseAuth;
-    FirebaseUser mFirebaseUser;
+    public FirebaseAuth mFirebaseAuth;
+    public FirebaseUser mFirebaseUser;
     String GOOGLE_TOS_URL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +54,45 @@ public class MainActivity extends AppCompatActivity {
             return;
         }else {
             String mUsername = mFirebaseUser.getDisplayName();
-//            String mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
             String mEmailAddress = mFirebaseUser.getEmail();
-            Log.d("USER INFO_______", mUsername+ "   " +mEmailAddress);
+            Log.d("__login user", mUsername);
+//            FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//            Map<String, Object> docData = new HashMap<>();
+//            docData.put("stringExample", "Hello world!");
+//            docData.put("booleanExample", true);
+//            docData.put("numberExample", 3.14159265);
+//            docData.put("dateExample", new Date());
+//            docData.put("listExample", Arrays.asList(1, 2, 3));
+//            docData.put("listExampleTESTING_ADDITIONS", Arrays.asList( 4));
+//
+//            docData.put("nullExample", null);
+//
+//            Map<String, Object> nestedData = new HashMap<>();
+//            nestedData.put("a", 5);
+//            nestedData.put("b", true);
+//
+//
+//
+//            docData.put("objectExample", nestedData);
+//
+//            db.collection("data").document("one")
+//                    .set(docData, SetOptions.merge())
+//                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Log.d("___suc___", "DocumentSnapshot successfully written!");
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Log.w("__err__", "Error writing document", e);
+//                        }
+//                    });
+
         }
-
         setContentView(R.layout.activity_main);
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        //startActivity(intent);
-
         ListView listView = findViewById(R.id.lv);
 
         final ArrayList<String> listItems = new ArrayList<String>();
@@ -83,8 +120,11 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(context,CameraActivity.class);//change to camera activity
+                i.putExtra("mUsername", mFirebaseUser.getDisplayName());
                 startActivity(i);
+
             }
         });
 
@@ -109,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

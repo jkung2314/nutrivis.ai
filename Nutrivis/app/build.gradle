@@ -40,6 +40,5 @@ dependencies {
     implementation 'com.google.api-client:google-api-client:1.23.0' exclude module: 'httpclient'
     implementation 'com.google.http-client:google-http-client-gson:1.23.0' exclude module: 'httpclient'
     implementation 'com.google.apis:google-api-services-vision:v1-rev369-1.23.0'
-    implementation 'com.google.protobuf:protobuf-gradle-plugin:0.8.6'
 }
 apply plugin: 'com.google.gms.google-services'

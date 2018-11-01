@@ -16,16 +16,19 @@ import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.Arrays;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 public class GVision {
 
     Vision vision;
+    private static String apiKeyPath;
 
     GVision(String apiKey) {
         JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -70,14 +73,42 @@ public class GVision {
     }
 
     //Implement with frontend / parser
-    /*
-    public static void main (String args[]) throws IOException {
-        GVision viz = new GVision("API_KEY");
-        List<AnnotateImageResponse> response = viz.getFeatures("FILE_PATH");
-        Gson gson = new Gson();
-        String json = gson.toJson(response);
+
+    public static String callGVis (final String filePath) {
+        String jsonResponse = "NOTHIN'";
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+
+                try {
+                    apiKeyPath = "GVis_key.txt";
+                    GVision viz = new GVision("AIzaSyAdtGrbdqnRbMgMCsDtf5gHXyaqA-v2Lgo");
+                    List<AnnotateImageResponse> response = viz.getFeatures(filePath);
+                    Gson gson = new Gson();
+                    String jsonResp = gson.toJson(response);
+                    Log.d("__THREAD SUC", jsonResp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        thread.start();
+        return jsonResponse;
+
     }
-    */
+
+    private static String getAPIKey(){
+        try{
+            String key = new Scanner( new File(apiKeyPath) ).useDelimiter("\\A").next();
+            Log.e("___getAPIKey", "key = " + key );
+            return key;
+        } catch (Exception e) {
+            Log.e("___getAPIKey", "Unable to get api key at " + apiKeyPath );
+        }
+
+        return null;
+    }
+
 
 
 

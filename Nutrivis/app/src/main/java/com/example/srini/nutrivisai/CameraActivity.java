@@ -120,7 +120,7 @@ public class CameraActivity extends Activity {
         final StorageReference uploadRef = storageRef.child("images/"+file.getLastPathSegment());
         UploadTask uploadTask = uploadRef.putFile(file);
         photoDBPath = "images/"+file.getLastPathSegment();
-/*
+
         // Register observers to listen for when the download is done or if it fails
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -133,35 +133,12 @@ public class CameraActivity extends Activity {
                 Log.d("__SUCCESS", "PHOTO " + photoDBPath +  " WAS UPLOADED!");
             }
         });
-        storageRef.child(photoDBPath).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Log.d("__link suc", uri.toString());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.d("__link fail", "FAIL");
-            }
-        });
-*/
 
-        //uploadTask = ref.putFile(file);
-
-        storageRef.child(photoDBPath).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Log.d("__SUCC_urI", uri.toString());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.d("__urlTask", "FAIL");
-            }
-        });
-
-
-
+        try {
+            Log.d("__RESPONse", GVision.callGVis(mCurrentPhotoPath));
+        } catch (Exception ex){
+            Log.d("__RESPONSE_FAIL", ex.toString());
+        }
 
     }
 

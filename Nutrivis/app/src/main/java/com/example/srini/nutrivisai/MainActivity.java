@@ -56,40 +56,7 @@ public class MainActivity extends AppCompatActivity {
             String mUsername = mFirebaseUser.getDisplayName();
             String mEmailAddress = mFirebaseUser.getEmail();
             Log.d("__login user", mUsername);
-//            FirebaseFirestore db = FirebaseFirestore.getInstance();
-//
-//            Map<String, Object> docData = new HashMap<>();
-//            docData.put("stringExample", "Hello world!");
-//            docData.put("booleanExample", true);
-//            docData.put("numberExample", 3.14159265);
-//            docData.put("dateExample", new Date());
-//            docData.put("listExample", Arrays.asList(1, 2, 3));
-//            docData.put("listExampleTESTING_ADDITIONS", Arrays.asList( 4));
-//
-//            docData.put("nullExample", null);
-//
-//            Map<String, Object> nestedData = new HashMap<>();
-//            nestedData.put("a", 5);
-//            nestedData.put("b", true);
-//
-//
-//
-//            docData.put("objectExample", nestedData);
-//
-//            db.collection("data").document("one")
-//                    .set(docData, SetOptions.merge())
-//                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Log.d("___suc___", "DocumentSnapshot successfully written!");
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.w("__err__", "Error writing document", e);
-//                        }
-//                    });
+
 
         }
         setContentView(R.layout.activity_main);

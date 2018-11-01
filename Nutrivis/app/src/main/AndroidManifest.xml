@@ -21,12 +21,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:theme="@style/AppTheme.Dark" />
-        <activity
-            android:name=".SignupActivity"
-            android:theme="@style/AppTheme.Dark" />
-        <activity
             android:name=".AuthUiActivity"
             android:label="@string/title_activity_auth_ui"
             android:theme="@style/AppTheme.NoActionBar" />

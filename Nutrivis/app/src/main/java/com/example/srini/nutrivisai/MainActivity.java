@@ -94,10 +94,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+      //  Log.wtf("HooshingMethod",NutritionixParser.parse(Nutritionix.getNutritionInfo("taco"))+"");
     }
-
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -15,6 +15,12 @@ import com.google.api.services.vision.v1.model.AnnotateImageResponse;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.Arrays;
@@ -22,6 +28,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -81,8 +88,6 @@ public class GVision {
 
     }
 
-    //Implement with frontend / parser
-
     public static String callGVis (final String filePath) {
         String jsonResponse = "NOTHIN'";
         Thread thread = new Thread(new Runnable() {
@@ -90,15 +95,32 @@ public class GVision {
 
                 try {
                     apiKeyPath = "GVis_key.txt";
-                    GVision viz = new GVision("AIzaSyAdtGrbdqnRbMgMCsDtf5gHXyaqA-v2Lgo");
+                    GVision viz = new GVision("API_KEY");
                     List<AnnotateImageResponse> response = viz.getFeatures(filePath);
                     Gson gson = new Gson();
+<<<<<<< HEAD
 
                     //lableAnnotations la = new lableAnnotations();
                     String jsonResp = gson.toJson(response.get(0));
 //                    la.dump();
                     System.out.println(jsonResp);
+=======
+                    String jsonResp = gson.toJson(response.get(0));
+
+                    JSONObject object = new JSONObject(jsonResp);
+                    Iterator<?> keys = object.keys();
+                    while(keys.hasNext() ) {
+                        String key = (String)keys.next();
+                        if ( object.get(key) instanceof JSONObject ) {
+                            JSONObject element = new JSONObject(object.get(key).toString());
+                            Log.d("res1",element.getString("description"));
+                            Log.d("res2",element.getString("score"));
+                        }
+                    }
+
+>>>>>>> f303b88f4dfd59d125c5005f2af5d13d3d665d75
                     Log.d("__THREAD SUC", jsonResp);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -121,10 +143,36 @@ public class GVision {
 
         return null;
     }
+<<<<<<< HEAD
 public static void main(String args[]){
         String resp = callGVis("/Users/daniel/projects/nutrivis.ai/Nutrivis/app/src/main/java/com/example/srini/nutrivisai/food.jpeg");
         System.out.println(resp);
 }
+=======
+
+    //Tester main
+    /*public static void main (String args[]) throws IOException, JSONException {
+        apiKeyPath = "GVis_key.txt";
+        GVision viz = new GVision("API_KEY");
+        List<AnnotateImageResponse> response = viz.getFeatures("FILE_PATH");
+        Gson gson = new Gson();
+        String jsonResp = gson.toJson(response.get(0));
+        System.out.print(jsonResp);
+
+        JSONObject object = new JSONObject(jsonResp);
+        Iterator<?> keys = object.keys();
+        while(keys.hasNext() ) {
+            String key = (String)keys.next();
+            if ( object.get(key) instanceof JSONObject ) {
+                JSONObject element = new JSONObject(object.get(key).toString());
+                Log.d("res1",element.getString("description"));
+                Log.d("res2",element.getString("score"));
+            }
+        }
+
+    }*/
+
+>>>>>>> f303b88f4dfd59d125c5005f2af5d13d3d665d75
 
 
 

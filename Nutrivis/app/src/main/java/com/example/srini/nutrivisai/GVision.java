@@ -23,7 +23,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+class lableAnnotations
+{
+
+    public String description;
+    public void dump(){
+        System.out.println(description);
+    }
+}
 
 public class GVision {
 
@@ -84,7 +93,11 @@ public class GVision {
                     GVision viz = new GVision("AIzaSyAdtGrbdqnRbMgMCsDtf5gHXyaqA-v2Lgo");
                     List<AnnotateImageResponse> response = viz.getFeatures(filePath);
                     Gson gson = new Gson();
-                    String jsonResp = gson.toJson(response);
+
+                    //lableAnnotations la = new lableAnnotations();
+                    String jsonResp = gson.toJson(response.get(0));
+//                    la.dump();
+                    System.out.println(jsonResp);
                     Log.d("__THREAD SUC", jsonResp);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -108,7 +121,10 @@ public class GVision {
 
         return null;
     }
-
+public static void main(String args[]){
+        String resp = callGVis("/Users/daniel/projects/nutrivis.ai/Nutrivis/app/src/main/java/com/example/srini/nutrivisai/food.jpeg");
+        System.out.println(resp);
+}
 
 
 

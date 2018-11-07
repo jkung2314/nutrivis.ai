@@ -29,5 +29,6 @@ before_install:
   - yes | sdkmanager "platforms;android-27"
 script:
    - chmod +x ./Nutrivis/gradlew
-   - ./Nutrivis/gradlew build connectedCheck # build, run assemble, check + possible tests
-   # May use if no tests written in future: - "./Nutrivis/gradlew clean test build"
+   - ./Nutrivis/gradlew clean build # build project from scratch
+   # - ./Nutrivis/gradlew build connectedCheck (Will use when test cases exist)
+      # build, run assemble, check + possible tests

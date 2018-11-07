@@ -28,5 +28,6 @@ android:
 before_install:
   - yes | sdkmanager "platforms;android-27"
 script:
-   - ./gradlew build connectedCheck # build, run assemble, check + possible tests
-   # May use if no tests written in future: - "./gradlew clean test build"
+   - chmod +x ./Nutrivis/gradlew
+   - ./Nutrivis/gradlew build connectedCheck # build, run assemble, check + possible tests
+   # May use if no tests written in future: - "./Nutrivis/gradlew clean test build"

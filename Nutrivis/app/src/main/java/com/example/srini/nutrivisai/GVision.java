@@ -15,14 +15,10 @@ import com.google.api.services.vision.v1.model.AnnotateImageResponse;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
+
 import java.util.Arrays;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,16 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-class lableAnnotations
-{
 
-    public String description;
-    public void dump(){
-        System.out.println(description);
-    }
-}
 
 public class GVision {
 
@@ -80,32 +67,28 @@ public class GVision {
             //Read response
             List<AnnotateImageResponse> responses = batchResponse.getResponses();
             return responses;
-        }
-        catch (GoogleJsonResponseException e) {
+        } catch (GoogleJsonResponseException e) {
             Log.wtf("GVision Authentication", "Authentication error caused by ".concat(e.getMessage()));
             return null;
         }
 
     }
 
-    public static String callGVis (final String filePath) {
+    public static String callGVis(final String filePath) {
         String jsonResponse = "NOTHIN'";
         Thread thread = new Thread(new Runnable() {
             public void run() {
 
                 try {
                     apiKeyPath = "GVis_key.txt";
-                    GVision viz = new GVision("API_KEY");
+                    GVision viz = new GVision("AIzaSyAdtGrbdqnRbMgMCsDtf5gHXyaqA-v2Lgo");
                     List<AnnotateImageResponse> response = viz.getFeatures(filePath);
                     Gson gson = new Gson();
-<<<<<<< HEAD
 
-                    //lableAnnotations la = new lableAnnotations();
                     String jsonResp = gson.toJson(response.get(0));
-//                    la.dump();
-                    System.out.println(jsonResp);
-=======
-                    String jsonResp = gson.toJson(response.get(0));
+                    Log.d("__GSON_RESULT_RAW", jsonResp);
+
+/* Half of someones attempt to parse gson
 
                     JSONObject object = new JSONObject(jsonResp);
                     Iterator<?> keys = object.keys();
@@ -117,9 +100,8 @@ public class GVision {
                             Log.d("res2",element.getString("score"));
                         }
                     }
+*/
 
->>>>>>> f303b88f4dfd59d125c5005f2af5d13d3d665d75
-                    Log.d("__THREAD SUC", jsonResp);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -131,49 +113,13 @@ public class GVision {
         return jsonResponse;
 
     }
-
-    private static String getAPIKey(){
-        try{
-            String key = new Scanner( new File(apiKeyPath) ).useDelimiter("\\A").next();
-            Log.e("___getAPIKey", "key = " + key );
-            return key;
-        } catch (Exception e) {
-            Log.e("___getAPIKey", "Unable to get api key at " + apiKeyPath );
-        }
-
-        return null;
-    }
-<<<<<<< HEAD
+}
+/* Teting main, add your own path to a file
 public static void main(String args[]){
         String resp = callGVis("/Users/daniel/projects/nutrivis.ai/Nutrivis/app/src/main/java/com/example/srini/nutrivisai/food.jpeg");
         System.out.println(resp);
 }
-=======
-
-    //Tester main
-    /*public static void main (String args[]) throws IOException, JSONException {
-        apiKeyPath = "GVis_key.txt";
-        GVision viz = new GVision("API_KEY");
-        List<AnnotateImageResponse> response = viz.getFeatures("FILE_PATH");
-        Gson gson = new Gson();
-        String jsonResp = gson.toJson(response.get(0));
-        System.out.print(jsonResp);
-
-        JSONObject object = new JSONObject(jsonResp);
-        Iterator<?> keys = object.keys();
-        while(keys.hasNext() ) {
-            String key = (String)keys.next();
-            if ( object.get(key) instanceof JSONObject ) {
-                JSONObject element = new JSONObject(object.get(key).toString());
-                Log.d("res1",element.getString("description"));
-                Log.d("res2",element.getString("score"));
-            }
-        }
-
-    }*/
-
->>>>>>> f303b88f4dfd59d125c5005f2af5d13d3d665d75
+*/
 
 
 
-}

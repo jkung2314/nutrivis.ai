@@ -27,6 +27,7 @@ android:
     - extra
 before_install:
   - yes | sdkmanager "platforms;android-27"
+  - yes | sdkmanager --licenses
 script:
    - chmod +x Nutrivis/gradlew
    - (cd Nutrivis; ./gradlew clean build) # build project from scratch

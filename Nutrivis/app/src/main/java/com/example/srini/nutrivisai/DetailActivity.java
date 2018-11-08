@@ -51,7 +51,7 @@ public class DetailActivity extends AppCompatActivity {
         String url = "https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg";
         new DownloadImageTask(imageView).execute(url);
         food.setText("Hot Dog");
-        calorieCount.setText("200");
+        calorieCount.setText("200 cal");
         date.setText("10/22/18");
         fatContent.setText("10g");
     }

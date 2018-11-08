@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent createEventIntent = new Intent(context, DetailActivity.class);
 
-                if(listItems.size()>1) {
+                if(listItems.size()>=1) {
                     startActivity(createEventIntent);
                 }
             }

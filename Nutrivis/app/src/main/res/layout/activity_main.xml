@@ -6,7 +6,7 @@
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-    android:background="#36abe2">
+    android:background="#07b8c1">
     tools:context=".MainActivity">
 
     <ListView

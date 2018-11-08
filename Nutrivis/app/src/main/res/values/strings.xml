@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">nutrivis.ai</string>
+    <string name="app_name">Nutrivis.ai</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_auth_ui">AuthUiActivity</string>

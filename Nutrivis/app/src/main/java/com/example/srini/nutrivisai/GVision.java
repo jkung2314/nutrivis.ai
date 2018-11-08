@@ -98,14 +98,14 @@ public class GVision {
                     GVision viz = new GVision("API_KEY");
                     List<AnnotateImageResponse> response = viz.getFeatures(filePath);
                     Gson gson = new Gson();
-<<<<<<< HEAD
+
 
                     //lableAnnotations la = new lableAnnotations();
                     String jsonResp = gson.toJson(response.get(0));
 //                    la.dump();
                     System.out.println(jsonResp);
-=======
-                    String jsonResp = gson.toJson(response.get(0));
+
+                   // String jsonResp = gson.toJson(response.get(0));
 
                     JSONObject object = new JSONObject(jsonResp);
                     Iterator<?> keys = object.keys();
@@ -118,7 +118,7 @@ public class GVision {
                         }
                     }
 
->>>>>>> f303b88f4dfd59d125c5005f2af5d13d3d665d75
+
                     Log.d("__THREAD SUC", jsonResp);
 
                 } catch (Exception e) {
@@ -143,12 +143,12 @@ public class GVision {
 
         return null;
     }
-<<<<<<< HEAD
+
 public static void main(String args[]){
         String resp = callGVis("/Users/daniel/projects/nutrivis.ai/Nutrivis/app/src/main/java/com/example/srini/nutrivisai/food.jpeg");
         System.out.println(resp);
 }
-=======
+
 
     //Tester main
     /*public static void main (String args[]) throws IOException, JSONException {
@@ -172,7 +172,7 @@ public static void main(String args[]){
 
     }*/
 
->>>>>>> f303b88f4dfd59d125c5005f2af5d13d3d665d75
+
 
 
 

@@ -2,13 +2,14 @@ package com.example.srini.nutrivisai;
 import java.lang.String;
 //import java.util.*;
 //import java.lang.Object;
+import android.os.AsyncTask;
 import java.net.*;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 
-public class NutritionixTask extends AsyncTask<String, void, String> {
+public class NutritionixTask extends AsyncTask<String, Void, String> {
 
-    private AsynRequester caller;
+    private AsyncRequester caller;
 
     public NutritionixTask(AsyncRequester c){
         this.caller = c;
@@ -63,4 +64,6 @@ public class NutritionixTask extends AsyncTask<String, void, String> {
     protected void onPostExecute(String reply) {
         caller.onCompletedTask(reply);
     }
+
+
 }

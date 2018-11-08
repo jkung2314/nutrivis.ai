@@ -1,4 +1,5 @@
 package com.example.srini.nutrivisai;
 
-public interface AsyncReq {
+public interface AsyncRequester {
+    public void onCompletedTask(String str);
 }

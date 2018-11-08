@@ -85,10 +85,12 @@ public class GVision {
                     List<AnnotateImageResponse> response = viz.getFeatures(filePath);
                     Gson gson = new Gson();
 
+
                     String jsonResp = gson.toJson(response.get(0));
                     Log.d("__GSON_RESULT_RAW", jsonResp);
 
 /* Half of someones attempt to parse gson
+
 
                     JSONObject object = new JSONObject(jsonResp);
                     Iterator<?> keys = object.keys();
@@ -103,6 +105,7 @@ public class GVision {
 */
 
 
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -113,13 +116,14 @@ public class GVision {
         return jsonResponse;
 
     }
+
 }
 /* Teting main, add your own path to a file
+
 public static void main(String args[]){
         String resp = callGVis("/Users/daniel/projects/nutrivis.ai/Nutrivis/app/src/main/java/com/example/srini/nutrivisai/food.jpeg");
         System.out.println(resp);
 }
+
 */
-
-
 

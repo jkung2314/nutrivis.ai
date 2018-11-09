@@ -135,7 +135,7 @@ public class CameraActivity extends Activity {
         });
 
         try {
-            Log.d("__RESPONse", GVision.callGVis(mCurrentPhotoPath));
+            Log.d("__RESPONSE", GVision.callGVis(mCurrentPhotoPath).toString());
         } catch (Exception ex){
             Log.d("__RESPONSE_FAIL", ex.toString());
         }

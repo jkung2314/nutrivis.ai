@@ -75,28 +75,23 @@ public class GVision {
 
     }
 
-    public static String callGVis(final String filePath) {
+    public static HashMap callGVis(final String filePath) {
         // Limit threads and make returnable with executor
         ExecutorService es = Executors.newFixedThreadPool(2);
         Future<HashMap> preds = es.submit(new asyncCall(filePath));
+        HashMap returnVal;
 
-        try{
+        try {
             Log.d("__callGvis", preds.get().toString());
-        }
-        catch (Exception e){
+            returnVal = preds.get();
+        } catch (Exception e) {
             e.printStackTrace();
+            returnVal = null;
         }
-        es.shutdown();
-
-        return preds.toString();
+        //es.shutdown();
+        return returnVal;
     }
 
-    /* Teting main, add your own path to a file
-    public static void main(String args[]) throws Exception {
-        callGVis("/Users/daniel/projects/nutrivis.ai/Nutrivis/app/src/main/java/com/example/srini/nutrivisai/food.jpeg");
-
-    }
-    */
 }
     class asyncCall implements Callable<HashMap> {
         private volatile HashMap<String, Float> predictions;
@@ -147,4 +142,15 @@ public class GVision {
     }
 
 
+
+
+/* Teting main, add your own path to a file
+
+public static void main(String args[]){
+        HashMap resp = callGVis("/Users/daniel/projects/nutrivis.ai/Nutrivis/app/src/main/java/com/example/srini/nutrivisai/food.jpeg");
+        System.out.println(resp.toString());
+}
+
+
+*/
 

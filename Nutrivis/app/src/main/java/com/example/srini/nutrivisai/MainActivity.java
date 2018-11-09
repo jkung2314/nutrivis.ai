@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Camera;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -31,7 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements AsyncRequester{
     private final Context context = this;
     private static final int RC_SIGN_IN = 123;
 
@@ -92,11 +93,21 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("mUsername", mFirebaseUser.getDisplayName());
                 startActivity(i);
 
+
+
             }
         });
-      //  Log.wtf("HooshingMethod",NutritionixParser.parse(Nutritionix.getNutritionInfo("taco"))+"");
+
     }
-    
+    //this method is called when asynctask is completed
+    public void onCompletedTask(String str){
+        //TODO do something with the string
+        //Log.e("nutri call",  str);
+    }
+    /*use this method to start the async request*/
+    private void runTask(){
+        AsyncTask<String, Void, String> nutrition = new NutritionixTask(this).execute("taco");
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

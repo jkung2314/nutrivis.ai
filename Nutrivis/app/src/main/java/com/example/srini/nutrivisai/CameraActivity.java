@@ -11,6 +11,7 @@ import com.google.firebase.storage.UploadTask;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -133,7 +134,9 @@ public class CameraActivity extends Activity {
                 Log.d("__SUCCESS", "PHOTO " + photoDBPath +  " WAS UPLOADED!");
             }
         });
-
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         try {
             Log.d("__RESPONSE", GVision.callGVis(mCurrentPhotoPath).toString());
         } catch (Exception ex){

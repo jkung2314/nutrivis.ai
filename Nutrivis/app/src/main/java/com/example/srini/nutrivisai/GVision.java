@@ -1,5 +1,6 @@
 package com.example.srini.nutrivisai;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
@@ -23,16 +24,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 
 public class GVision {
 
     Vision vision;
-    private static String apiKeyPath;
 
     GVision(String apiKey) {
         JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
@@ -75,82 +71,65 @@ public class GVision {
 
     }
 
-    public static HashMap callGVis(final String filePath) {
-        // Limit threads and make returnable with executor
-        ExecutorService es = Executors.newFixedThreadPool(2);
-        Future<HashMap> preds = es.submit(new asyncCall(filePath));
-        HashMap returnVal;
 
+    public static HashMap callGVis(final String filePath) {
+
+        // Limit threads and make returnable with executor
+        HashMap preds = null;
         try {
-            Log.d("__callGvis", preds.get().toString());
-            returnVal = preds.get();
+           preds = new asyncCall().execute(filePath).get();
+        }
+        catch (Exception e ) {
+            e.printStackTrace();
+        }
+        return preds;
+    }
+
+    // Little method so that you can call log(whatever string) and not need to
+    // change a million System.out.printlns to Log.ds or vice versa. (Just one)
+    public static void log(String msg){
+        //System.out.println(msg);
+        Log.d("__LOG", msg);
+    }
+}
+
+
+
+class asyncCall extends AsyncTask<String, Integer, HashMap> {
+    protected HashMap doInBackground(String... paths) {
+        HashMap predictions = new HashMap();
+        try {
+            GVision viz = new GVision("AIzaSyAdtGrbdqnRbMgMCsDtf5gHXyaqA-v2Lgo");
+            List<AnnotateImageResponse> response = viz.getFeatures(paths[0]);
+            Gson gson = new Gson();
+
+            String jsonResp = gson.toJson(response.get(0));
+
+            // split up json into string arrays
+            String[] descriptions = jsonResp.split("\"description\":\"");
+            String[] scores = jsonResp.split("score\":");
+            for (int i = 0; i < 5; i++) {
+                String desc = descriptions[i].split("\"")[0];  // take off the ends of the string
+                String score = scores[i].split(",")[0];
+
+                // If the desc or score contains any non-alpha chars, skip
+                if (!desc.matches(".*[a-z].*")) {
+                    GVision.log("INVALID score  " + score);
+                    GVision.log("INVALID desc  " + desc);
+                    continue;
+                }
+                GVision.log("score  " + score);
+                GVision.log("desc  " + desc);
+                predictions.put(desc, Float.valueOf(score));  //add to hashmap
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            returnVal = null;
         }
-        //es.shutdown();
-        return returnVal;
+        return predictions;
     }
-
-}
-    class asyncCall implements Callable<HashMap> {
-        private volatile HashMap<String, Float> predictions;
-        private final String filePath;
-        asyncCall(String fp){
-            filePath = fp;
-            getPredictions();
-
-        }
-
-        public void getPredictions() {
-
-            try {
-                GVision viz = new GVision("AIzaSyAdtGrbdqnRbMgMCsDtf5gHXyaqA-v2Lgo");
-                List<AnnotateImageResponse> response = viz.getFeatures(filePath);
-                Gson gson = new Gson();
-
-                String jsonResp = gson.toJson(response.get(0));
-                predictions = new HashMap();
-
-                // split up json into string arrays
-                String[] descriptions = jsonResp.split("\"description\":\"");
-                String[] scores = jsonResp.split("score\":");
-                for (int i = 0; i < 5; i++) {
-
-                        String desc = descriptions[i].split("\"")[0];  // take off the ends of the string
-                        String score = scores[i].split(",")[0];
-
-                        // If the desc or score contains any non-alpha chars, skip
-                        if (! desc.matches(".*[a-z].*")) {
-                            Log.d("__asyncCall","INVALID desc  " + desc);
-                            Log.d("__asyncCall","INVALID score  " + score);
-                            continue;
-                        }
-                        Log.d("__asyncCall","desc  " + desc);
-                        Log.d("__asyncCall","score  " + score);
-                        predictions.put(desc, Float.valueOf(score));  //add to hashmap
-                }
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        public HashMap<String, Float> call(){
-            return predictions;
-        }
-    }
-
-
-
-
-/* Teting main, add your own path to a file
-
-public static void main(String args[]){
-        HashMap resp = callGVis("/Users/daniel/projects/nutrivis.ai/Nutrivis/app/src/main/java/com/example/srini/nutrivisai/food.jpeg");
-        System.out.println(resp.toString());
 }
 
 
-*/
+
+
 

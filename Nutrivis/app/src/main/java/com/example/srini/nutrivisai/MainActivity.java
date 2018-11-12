@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toolbar;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,12 +39,32 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     private final Context context = this;
     private static final int RC_SIGN_IN = 123;
 
+    private ViewPager viewPager;
+    private Toolbar toolbar;
+    private TabAdapter adapter;
+    private TabLayout layout;
+
+
     public FirebaseAuth mFirebaseAuth;
     public FirebaseUser mFirebaseUser;
     String GOOGLE_TOS_URL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        adapter = new TabAdapter(getSupportFragmentManager());
+
+        viewPager = (ViewPager) findViewById(R.id.container);
+        viewPager.setAdapter(adapter);
+        setUp(viewPager);
+
+
+
+        setUpTabLayout();
+
+
+        viewPager.setCurrentItem(1);
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
@@ -129,6 +152,59 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         }
     }
 
+
+
+    private void setUp(ViewPager v) {
+        layout = (TabLayout) findViewById(R.id.tabs);
+        DashboardTab dt = new DashboardTab();
+        WorkZonesTab wt = new WorkZonesTab();
+        ProfileTab pt = new ProfileTab();
+
+
+        TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
+        adapter.addTab(pt, "Profile");
+        adapter.addTab(dt, "Dashboard");
+        adapter.addTab(wt, "WorkZones");
+
+        v.setAdapter(adapter);
+
+        final CharSequence titles[] = {"Profile","Dashboard", "WorkZones"};
+
+
+        layout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+            @Override
+            public void onTabSelected(TabLayout.Tab tab){
+                //mTitle.setText(titles[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
+    }
+    // method
+    private void setUpTabLayout() {
+        layout = (TabLayout) findViewById(R.id.tabs);
+        layout.setupWithViewPager(viewPager);
+
+        final int[] icons = new int[] {
+                R.drawable.eye,
+                R.drawable.eye,
+                R.drawable.eye
+        };
+        layout.getTabAt(0).setIcon(icons[0]);
+        layout.getTabAt(1).setIcon(icons[1]);
+        layout.getTabAt(2).setIcon(icons[2]);
+    }
 
 
 }

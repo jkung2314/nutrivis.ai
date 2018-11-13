@@ -5,6 +5,7 @@ import java.util.*;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Camera;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.io.IOException;
@@ -84,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         });
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        fab.setBackgroundColor(Color.BLUE);
+        fab.setImageResource(R.drawable.mango);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +96,20 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
                 Intent i = new Intent(context,CameraActivity.class);//change to camera activity
                 i.putExtra("mUsername", mFirebaseUser.getDisplayName());
+                startActivity(i);
+
+
+
+            }
+        });
+
+        ImageButton signout = findViewById(R.id.signout);
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mFirebaseAuth.signOut();
+                Intent i = new Intent(context,AuthUiActivity.class);
                 startActivity(i);
 
 
@@ -113,20 +132,6 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                mFirebaseAuth.signOut();
-                startActivity(new Intent(this, MainActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
 

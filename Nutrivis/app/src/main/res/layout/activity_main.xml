@@ -2,18 +2,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    tools:context=".MainActivity">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+
+    tools:context="com.example.srini.nutrivisai.MainActivity"
+    tools:backgroundTint="@android:color/background_light"
+    android:background="#FFFFFF">
+
+    <android.support.v7.widget.Toolbar
+
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/fui_bgEmail"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+
+
+
+
+
+        <ImageView android:id="@+id/image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="42dp"
+            android:maxHeight="42dp"
+            android:scaleType="fitStart"
+            android:layout_marginLeft="-200dp"
+
+            android:src="@drawable/eye"
+            />
+
+        <ImageButton
+            android:id="@+id/signout"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginLeft="470dp"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/logoutrightone"
+
+             />
+
+        
+
+
+
+
+
+
+
+
+
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/email_login_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="60dp"
+        android:background="#808080">
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
 
     <ListView
         android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="67dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:tint="@color/white"
@@ -26,5 +109,7 @@
         android:layout_marginRight="18dp"
         android:clickable="true"
         android:src="@android:drawable/ic_input_add"
-       />
+        />
+
+
 </RelativeLayout>

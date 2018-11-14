@@ -30,5 +30,6 @@ before_install:
 script:
    - chmod +x Nutrivis/gradlew
    - (cd Nutrivis; ./gradlew clean build) # build project from scratch
+   - (cd Nutrivis; ./gradlew test) #Run unit + integration tests
    # - ./gradlew build connectedCheck (Will use when test cases exist)
       # build, run assemble, check + possible tests

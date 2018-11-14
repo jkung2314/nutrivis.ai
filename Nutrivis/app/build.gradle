@@ -19,6 +19,9 @@ android {
     lintOptions {
         warning 'InvalidPackage'
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {

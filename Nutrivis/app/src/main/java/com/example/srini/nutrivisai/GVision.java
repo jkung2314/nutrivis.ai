@@ -41,6 +41,7 @@ public class GVision {
         vision = visionBuilder.build();
     }
 
+
     public List<AnnotateImageResponse> getFeatures(String filePath) throws IOException {
         //Convert image to base64
         Path path = Paths.get(filePath);
@@ -91,11 +92,31 @@ public class GVision {
         //System.out.println(msg);
         Log.d("__LOG", msg);
     }
+
+    public static HashMap parse(String jsonResp, HashMap predictions) {
+        // split up json into string arrays
+        String[] descriptions = jsonResp.split("\"description\":\"");
+        String[] scores = jsonResp.split("score\":");
+        for (int i = 0; i < 5; i++) {
+            String desc = descriptions[i].split("\"")[0];  // take off the ends of the string
+            String score = scores[i].split(",")[0];
+
+            // If the desc or score contains any non-alpha chars, skip
+            if (!desc.matches(".*[a-z].*")) {
+                GVision.log("INVALID score  " + score);
+                GVision.log("INVALID desc  " + desc);
+                continue;
+            }
+            GVision.log("score  " + score);
+            GVision.log("desc  " + desc);
+            predictions.put(desc, Float.valueOf(score));  //add to hashmap
+        }
+        return predictions;
+    }
 }
 
-
-
 class asyncCall extends AsyncTask<String, Integer, HashMap> {
+
     protected HashMap doInBackground(String... paths) {
         HashMap predictions = new HashMap();
         try {
@@ -104,8 +125,9 @@ class asyncCall extends AsyncTask<String, Integer, HashMap> {
             Gson gson = new Gson();
 
             String jsonResp = gson.toJson(response.get(0));
+            predictions = GVision.parse(jsonResp, predictions);
 
-            // split up json into string arrays
+            /*// split up json into string arrays
             String[] descriptions = jsonResp.split("\"description\":\"");
             String[] scores = jsonResp.split("score\":");
             for (int i = 0; i < 5; i++) {
@@ -121,7 +143,7 @@ class asyncCall extends AsyncTask<String, Integer, HashMap> {
                 GVision.log("score  " + score);
                 GVision.log("desc  " + desc);
                 predictions.put(desc, Float.valueOf(score));  //add to hashmap
-            }
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }

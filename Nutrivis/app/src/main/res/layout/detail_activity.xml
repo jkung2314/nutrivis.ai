@@ -4,7 +4,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.example.srini.nutrivisai.MainActivity"
+    tools:backgroundTint="@android:color/background_light"
+    android:background="#FFFFFF">
+
+    <android.support.v7.widget.Toolbar
+
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/fui_bgEmail"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+
+        <ImageView android:id="@+id/image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="42dp"
+            android:maxHeight="42dp"
+            android:scaleType="fitStart"
+            android:layout_marginLeft="-200dp"
+
+            android:src="@drawable/eye"
+            />
+
+        <ImageButton
+            android:id="@+id/signout"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginLeft="470dp"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/logoutrightone"
+
+            />
+
+    </android.support.v7.widget.Toolbar>
 
     <TextView
         android:id="@+id/textView"

@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     }
     /*use this method to start the async request*/
     private void runTask(){
-        AsyncTask<String, Void, String> nutrition = new NutritionixTask(this).execute("taco");
+        AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute("taco");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

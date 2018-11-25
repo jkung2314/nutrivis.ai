@@ -82,6 +82,12 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
                 Intent createEventIntent = new Intent(context, DetailActivity.class);
 
                 if(listItems.size()>1) {
+                    Food f = listItems.get(position);
+                    createEventIntent.putExtra("name",f.getName());
+                    createEventIntent.putExtra("cal",f.getCalorieCount()+"g");
+                    createEventIntent.putExtra("fat",f.getFatContent()+"g");
+                    createEventIntent.putExtra("url",f.getURL());
+                    createEventIntent.putExtra("date",f.getDateScanned());
                     startActivity(createEventIntent);
                 }
             }

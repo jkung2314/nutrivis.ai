@@ -36,23 +36,23 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.detail_activity);
 
         Intent i = getIntent();
-       // String title = i.getStringExtra("title");
-        //String url = i.getStringExtra("url");
-        //String collection = i.getStringExtra("collection");
-        //String artist = i.getStringExtra("artist");
+        String name = i.getStringExtra("name");
+        String url = i.getStringExtra("url");
+        String fat = i.getStringExtra("fat");
+        String cal = i.getStringExtra("cal");
+        String scanned = i.getStringExtra("date");
 
         TextView food = (TextView) findViewById(R.id.textView15);
         TextView calorieCount = (TextView) findViewById(R.id.textView14);
         TextView date = (TextView) findViewById(R.id.textView16);
         TextView fatContent = (TextView) findViewById(R.id.textView2);
-
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
 
-        String url = "https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg";
+
         new DownloadImageTask(imageView).execute(url);
-        food.setText("Hot Dog");
-        calorieCount.setText("200");
-        date.setText("10/22/18");
-        fatContent.setText("10g");
+        food.setText(name);
+        calorieCount.setText(cal);
+        date.setText(scanned);
+        fatContent.setText(fat);
     }
 }

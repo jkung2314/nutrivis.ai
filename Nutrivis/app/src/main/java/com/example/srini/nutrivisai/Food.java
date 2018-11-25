@@ -10,12 +10,14 @@ public class Food {
     private double fatContent;
     private double calorieCount;
     private String dateScanned;
+    private String url;
 
     @SuppressLint("NewApi")
-    public Food(String foodName, double fatContent, double calorieCount){
+    public Food(String foodName, double fatContent, double calorieCount, String url){
         name = foodName;
         this.fatContent = fatContent;
         this.calorieCount = calorieCount;
+        this.url = url;
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
@@ -40,6 +42,10 @@ public class Food {
 
     public String getDateScanned(){
         return dateScanned;
+    }
+
+    public String getURL(){
+        return url;
     }
 }
 

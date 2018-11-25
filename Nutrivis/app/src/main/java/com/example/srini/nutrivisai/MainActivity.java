@@ -66,11 +66,13 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         setContentView(R.layout.activity_main);
         ListView listView = findViewById(R.id.lv);
 
-        final ArrayList<String> listItems = new ArrayList<String>();
+        final ArrayList<Food> listItems = new ArrayList<Food>();
 
-        listItems.add("No Items scanned yet");
+        String url = "https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg";
+        listItems.add(new Food("Pizza",30.0,2000.0,url));
+        listItems.add(new Food("Pasta",20.0,1000.0,url));
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
+        CustomAdapter adapter = new CustomAdapter(this,listItems);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

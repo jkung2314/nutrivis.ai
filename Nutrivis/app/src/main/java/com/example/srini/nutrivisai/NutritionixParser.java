@@ -15,7 +15,7 @@ public class NutritionixParser {
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
             double cal = Double.parseDouble(jo.getJSONArray("foods").getJSONObject(0).get("nf_calories")+"");
             double fat = Double.parseDouble(jo.getJSONArray("foods").getJSONObject(0).get("nf_total_fat")+"");
-            parsedFood = new Food(name,fat,cal);
+            parsedFood = new Food(name,fat,cal,"");
         }catch (JSONException j){
             Log.wtf("NutritionixParser","JSONException occurred while parsing to Food");
         }

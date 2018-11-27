@@ -4,35 +4,28 @@ package com.example.srini.nutrivisai;
 import java.util.*;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Camera;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.NonNull;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-
-import java.io.IOException;
 import java.util.ArrayList;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.*;
 
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
+
+import static java.lang.Thread.sleep;
 
 
 public class MainActivity extends AppCompatActivity implements AsyncRequester{
@@ -41,16 +34,16 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
     public FirebaseAuth mFirebaseAuth;
     public FirebaseUser mFirebaseUser;
-    String GOOGLE_TOS_URL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-
-
-
+//        if(savedInstanceState.containsKey("photoUri")){
+//            Log.d("___URI",savedInstanceState.get("photoUri").toString() );
+//        }
         if (mFirebaseUser == null){
             //Not signed in, launch the Sign In Activity
             startActivity(new Intent(this, AuthUiActivity.class));
@@ -59,7 +52,14 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         }else {
             String mUsername = mFirebaseUser.getDisplayName();
             String mEmailAddress = mFirebaseUser.getEmail();
+
             Log.d("__login user", mUsername);
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+            FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                    .setTimestampsInSnapshotsEnabled(true)
+                    .build();
+            db.setFirestoreSettings(settings);
 
 
         }
@@ -95,7 +95,10 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
             public void onClick(View v) {
 
                 Intent i = new Intent(context,CameraActivity.class);//change to camera activity
-                i.putExtra("mUsername", mFirebaseUser.getDisplayName());
+
+                i.putExtra("user", mFirebaseAuth.getCurrentUser());
+                //DataManagement dm = new DataManagement(mFirebaseUser);
+                //i.putExtra("dm",( new Gson().toJson(dm)));
                 startActivity(i);
 
 
@@ -122,6 +125,10 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     public void onCompletedTask(String str){
         //TODO do something with the string
         //Log.e("nutri call",  str);
+    }
+    public void onCompletedTask(Map responseVals){
+        //TODO do something with the string
+        Log.d("___QUERY_RESP",  responseVals.toString());
     }
     /*use this method to start the async request*/
     private void runTask(){

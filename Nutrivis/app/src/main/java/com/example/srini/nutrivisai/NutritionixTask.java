@@ -3,9 +3,13 @@ import java.lang.String;
 //import java.util.*;
 //import java.lang.Object;
 import android.os.AsyncTask;
+import android.util.Log;
+
 import java.net.*;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
+import java.util.Arrays;
+import java.util.HashMap;
 
 
 public class NutritionixTask {
@@ -104,7 +108,7 @@ class NutritionixTaskCall extends AsyncTask<String, Void, String>{
             System.err.println("malformed url excpetion occured " + e.getMessage());
             return null;
         }catch(ProtocolException e){
-            System.err.println("protocol excpetion occured " + e.getMessage());
+            System.err.println("protocol exception occured " + e.getMessage());
             return null;
         }catch(IOException e){
             System.err.println("io exception occured " + e.getMessage());
@@ -115,6 +119,4 @@ class NutritionixTaskCall extends AsyncTask<String, Void, String>{
     protected void onPostExecute(String reply) {
         caller.onCompletedTask(reply);
     }
-
-
 }

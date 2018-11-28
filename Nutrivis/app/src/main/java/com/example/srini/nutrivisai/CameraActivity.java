@@ -26,11 +26,17 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+<<<<<<< HEAD
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+=======
+import java.lang.reflect.Array;
+>>>>>>> b9b2e93c006fb1385dd5c3d46ed716c49fd0caea
 import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.google.firebase.storage.*;
 
@@ -151,12 +157,13 @@ public class CameraActivity extends Activity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        /*
         try {
             Log.d("__RESPONSE", GVision.callGVis(mCurrentPhotoPath).toString());
         } catch (Exception ex){
             Log.d("__RESPONSE_FAIL", ex.toString());
         }
-
+        */
     }
 
 }

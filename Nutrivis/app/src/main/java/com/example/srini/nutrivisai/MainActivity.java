@@ -1,6 +1,7 @@
 package com.example.srini.nutrivisai;
 
 
+import java.io.File;
 import java.util.*;
 import android.content.Context;
 import android.content.Intent;
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
             }
         });
-
+        runTask();
     }
     //this method is called when asynctask is completed
     public void onCompletedTask(String str){
@@ -134,7 +135,22 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     }
     /*use this method to start the async request*/
     private void runTask(){
-        AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute("taco");
+        Intent i = getIntent();
+        String path = i.getStringExtra("imagePath");
+        HashMap map = GVision.callGVis(path);
+        Log.d("TAG", "Map of preds: " + Arrays.asList(map));
+        String finalFood = ResolveFood.resolveFood(map);
+        Log.d("TAG", "Final Food: " + finalFood);
+        AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
+        try {
+            String n = nutrition.get();
+            Log.d("TAG" , "nutrition info: " + n);
+        } catch (Exception e ) {
+            e.printStackTrace(); // FOOD NOT IDENTIFIED
+        }
+
+        //File path1 = context.getFilesDir();
+       // File file = new File(path1, "foods.txt");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

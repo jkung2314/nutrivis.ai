@@ -26,6 +26,8 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,7 +61,19 @@ public class CameraActivity extends Activity {
 
             uploadPhotoToStorage();
 
-            Toast.makeText(getApplicationContext(),"Image Uploaded " +  userInfo.getString("mUsername"),Toast.LENGTH_SHORT).show();
+            NutritionixTask task = new NutritionixTask();
+            try {
+                task.getNutritionInfo("pizza");
+               // Toast.makeText(getApplicationContext(),"Image Uploaded " + task.getNutritionInfo("ass"),Toast.LENGTH_SHORT).show();
+
+            }
+        catch(MalformedURLException e){
+
+        }catch(ProtocolException e){
+
+        }catch(IOException e){
+                Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
+        }
 
             Intent i = new Intent(getApplicationContext(),MainActivity.class); // wherever this needs to be redirected
 

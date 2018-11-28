@@ -31,6 +31,8 @@ public class DataManagement {
 
     public void pushFood(HashMap food) {
         DocumentReference docRef = db.collection("userData").document(user.getUid());
+
+
         docRef.update("foods", FieldValue.arrayUnion(food));
     }
 

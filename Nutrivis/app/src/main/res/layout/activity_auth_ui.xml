@@ -23,6 +23,6 @@
         android:layout_height="match_parent"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="top|center"
-        app:srcCompat="@drawable/eye" />
+        app:srcCompat="@drawable/main_logo" />
 
 </android.support.design.widget.CoordinatorLayout>

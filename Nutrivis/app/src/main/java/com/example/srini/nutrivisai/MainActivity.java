@@ -5,65 +5,44 @@ import java.io.File;
 import java.util.*;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Camera;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import java.io.IOException;
 import java.util.ArrayList;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.*;
-
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
+
 public class MainActivity extends AppCompatActivity implements AsyncRequester{
     private final Context context = this;
-    private static final int RC_SIGN_IN = 123;
 
     public FirebaseAuth mFirebaseAuth;
     public FirebaseUser mFirebaseUser;
-    String GOOGLE_TOS_URL;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-
-
-
-        if (mFirebaseUser == null){
-            //Not signed in, launch the Sign In Activity
-            startActivity(new Intent(this, AuthUiActivity.class));
-            finish();
-            return;
-        }else {
-            String mUsername = mFirebaseUser.getDisplayName();
-            String mEmailAddress = mFirebaseUser.getEmail();
-            Log.d("__login user", mUsername);
-
-
+        try{
+            Bundle extras =  getIntent().getExtras();
+            String docs = extras.getString("docs");
+            Log.d("__User's Data", docs);
+        }catch (Exception e){
+            Log.e("__User's Data", "FAILED TO FIND");
+            e.printStackTrace();
         }
         setContentView(R.layout.activity_main);
         ListView listView = findViewById(R.id.lv);
@@ -107,7 +86,10 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
             public void onClick(View v) {
 
                 Intent i = new Intent(context,CameraActivity.class);//change to camera activity
-                i.putExtra("mUsername", mFirebaseUser.getDisplayName());
+
+                i.putExtra("user", mFirebaseAuth.getCurrentUser());
+                //DataManagement dm = new DataManagement(mFirebaseUser);
+                //i.putExtra("dm",( new Gson().toJson(dm)));
                 startActivity(i);
 
 
@@ -134,6 +116,10 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     public void onCompletedTask(String str){
         //TODO do something with the string
         //Log.e("nutri call",  str);
+    }
+    public void onCompletedTask(Map responseVals){
+        //TODO do something with the string
+        Log.d("___QUERY_RESP",  responseVals.toString());
     }
     /*use this method to start the async request*/
     private void runTask(){

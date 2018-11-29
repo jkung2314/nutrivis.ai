@@ -5,7 +5,7 @@
     android:minHeight="50dp"
     android:padding="8dp"
     android:textColor="@color/white"
-    android:background="@color/jet">
+    android:background="@color/oil">
 
     <ImageView
         android:id="@+id/thumbImage"

@@ -4,4 +4,5 @@
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_auth_ui">AuthUiActivity</string>
     <string name="title_activity_camera">CameraActivity</string>
+    <string name="title_activity_splash">splash</string>
 </resources>

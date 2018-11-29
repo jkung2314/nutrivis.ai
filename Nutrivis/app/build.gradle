@@ -45,21 +45,23 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 
+
     implementation ('com.google.api-client:google-api-client:1.23.0'){
+
         exclude group: 'com.google.guava', module: 'guava-jdk5'
         exclude module: 'httpclient'
     }
 
-    implementation ('com.google.http-client:google-http-client-gson:1.23.0'){
+    implementation('com.google.http-client:google-http-client-gson:1.23.0') {
         exclude group: 'com.google.guava', module: 'guava-jdk5'
         exclude module: 'httpclient'
     }
-    implementation ('com.google.apis:google-api-services-vision:v1-rev369-1.23.0'){
+    implementation('com.google.apis:google-api-services-vision:v1-rev369-1.23.0') {
         exclude group: 'com.google.guava', module: 'guava-jdk5'
         exclude module: 'httpclient'
     }
 
-    implementation ('com.google.firebase:firebase-firestore:17.1.2'){
+    implementation('com.google.firebase:firebase-firestore:17.1.2') {
         exclude group: 'com.google.guava', module: 'guava-jdk5'
         exclude module: 'httpclient'
     }

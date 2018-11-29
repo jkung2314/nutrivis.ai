@@ -127,7 +127,7 @@ class asyncCall extends AsyncTask<String, Integer, HashMap> {
             String jsonResp = gson.toJson(response.get(0));
             predictions = GVision.parse(jsonResp, predictions);
 
-            /*// split up json into string arrays
+            // split up json into string arrays
             String[] descriptions = jsonResp.split("\"description\":\"");
             String[] scores = jsonResp.split("score\":");
             for (int i = 0; i < 5; i++) {
@@ -143,7 +143,7 @@ class asyncCall extends AsyncTask<String, Integer, HashMap> {
                 GVision.log("score  " + score);
                 GVision.log("desc  " + desc);
                 predictions.put(desc, Float.valueOf(score));  //add to hashmap
-            }*/
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

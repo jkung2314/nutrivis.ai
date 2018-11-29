@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
                     createEventIntent.putExtra("fat",f.getFatContent()+"g");
                     createEventIntent.putExtra("url",f.getURL());
                     createEventIntent.putExtra("date",f.getDateScanned());
+                    createEventIntent.putExtra("servings",f.getServings());
                     startActivity(createEventIntent);
                 }
             }

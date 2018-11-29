@@ -47,23 +47,26 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //try{ Thread.sleep(10000); } catch (Exception e){ e.printStackTrace(); }
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-
-
-
-        if (mFirebaseUser == null){
-            //Not signed in, launch the Sign In Activity
-            startActivity(new Intent(this, AuthUiActivity.class));
-            finish();
-            return;
-        }else {
-            String mUsername = mFirebaseUser.getDisplayName();
-            String mEmailAddress = mFirebaseUser.getEmail();
-            Log.d("__login user", mUsername);
-
-
+//        if (mFirebaseUser == null){
+//            //Not signed in, launch the Sign In Activity
+//            startActivity(new Intent(this, AuthUiActivity.class));
+//            finish();
+//            return;
+//        }else {
+//            String mUsername = mFirebaseUser.getDisplayName();
+//            String mEmailAddress = mFirebaseUser.getEmail();
+//            Log.d("__login user", mUsername);
+//        }
+        try{
+            Log.d("______RES", savedInstanceState.get("docs").toString());
+        }catch (Exception e){
+            e.printStackTrace();
         }
         setContentView(R.layout.activity_main);
         ListView listView = findViewById(R.id.lv);
@@ -148,9 +151,6 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         } catch (Exception e ) {
             e.printStackTrace(); // FOOD NOT IDENTIFIED
         }
-
-        //File path1 = context.getFilesDir();
-       // File file = new File(path1, "foods.txt");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

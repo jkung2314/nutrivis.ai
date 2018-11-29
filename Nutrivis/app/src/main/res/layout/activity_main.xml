@@ -94,7 +94,6 @@
         android:layout_marginRight="18dp"
         android:layout_marginBottom="18dp"
         android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
         android:tint="@color/white"
         app:backgroundTint="@color/accent" />
 

@@ -8,36 +8,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-<<<<<<< HEAD
 import android.widget.Toast;
-
-import java.io.IOException;
-=======
->>>>>>> broken_imports
 import java.util.ArrayList;
-import com.google.firebase.firestore.*;
-
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.gson.Gson;
 
-import static java.lang.Thread.sleep;
 
 
 public class MainActivity extends AppCompatActivity implements AsyncRequester{
     private final Context context = this;
-    private static final int RC_SIGN_IN = 123;
 
     public FirebaseAuth mFirebaseAuth;
     public FirebaseUser mFirebaseUser;
@@ -45,51 +32,16 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
-
-        //try{ Thread.sleep(10000); } catch (Exception e){ e.printStackTrace(); }
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-=======
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-//        if(savedInstanceState.containsKey("photoUri")){
-//            Log.d("___URI",savedInstanceState.get("photoUri").toString() );
-//        }
-        if (mFirebaseUser == null){
-            //Not signed in, launch the Sign In Activity
-            startActivity(new Intent(this, AuthUiActivity.class));
-            finish();
-            return;
-        }else {
-            String mUsername = mFirebaseUser.getDisplayName();
-            String mEmailAddress = mFirebaseUser.getEmail();
-
-            Log.d("__login user", mUsername);
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-            FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
-                    .setTimestampsInSnapshotsEnabled(true)
-                    .build();
-            db.setFirestoreSettings(settings);
-
->>>>>>> broken_imports
-
-//        if (mFirebaseUser == null){
-//            //Not signed in, launch the Sign In Activity
-//            startActivity(new Intent(this, AuthUiActivity.class));
-//            finish();
-//            return;
-//        }else {
-//            String mUsername = mFirebaseUser.getDisplayName();
-//            String mEmailAddress = mFirebaseUser.getEmail();
-//            Log.d("__login user", mUsername);
-//        }
         try{
-            Log.d("______RES", savedInstanceState.get("docs").toString());
+            Bundle extras =  getIntent().getExtras();
+            String docs = extras.getString("docs");
+            Log.d("__User's Data", docs);
         }catch (Exception e){
+            Log.e("__User's Data", "FAILED TO FIND");
             e.printStackTrace();
         }
         setContentView(R.layout.activity_main);

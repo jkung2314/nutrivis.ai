@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.util.ExtraConstants;
@@ -29,8 +30,6 @@ public class Splash extends AppCompatActivity {
         t=this;
         setContentView(R.layout.activity_splash);
 
-        //try{ Thread.sleep(10000); } catch (Exception e){ e.printStackTrace(); }
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
@@ -45,11 +44,15 @@ public class Splash extends AppCompatActivity {
             Log.d("__login user", mUsername + "    " + mEmailAddress);
 
             getUserData(FirebaseFirestore.getInstance(), mFirebaseUser);
-
         }
     }
 
+    public void triggerMain(String docs){
+        Intent in = new Intent(this, MainActivity.class);
+        in.putExtra("docs", docs);
+        startActivity(in);
 
+    }
 
     public String TAG = "__getUserData";
     public void getUserData(FirebaseFirestore db, FirebaseUser user) {
@@ -62,16 +65,13 @@ public class Splash extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            triggerMain( document.getData().toString());
 
-
-                            Intent in = new Intent(t, MainActivity.class);
-                            in.putExtra("doc", document.getData().toString());
-                            startActivity(in);
                         } else {
-                            Log.d(TAG, "No such document");
+                            Log.e(TAG, "No such document");
                         }
                     } else {
-                        Log.d(TAG, "get failed with ", task.getException());
+                        Log.e(TAG, "get failed with ", task.getException());
                     }
                 }
             });

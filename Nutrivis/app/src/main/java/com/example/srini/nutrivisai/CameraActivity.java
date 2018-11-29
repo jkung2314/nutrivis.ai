@@ -41,10 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-<<<<<<< HEAD
-=======
-import java.util.Map;
->>>>>>> broken_imports
+
 
 import com.google.firebase.storage.*;
 import com.google.gson.Gson;
@@ -154,8 +151,11 @@ public class CameraActivity extends Activity {
         this.sendBroadcast(mediaScanIntent);
     }
 
+   /* private void uploadPhotoToStorage() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
 
-<<<<<<< HEAD
         final StorageReference uploadRef = storageRef.child("images/"+file.getLastPathSegment());
         UploadTask uploadTask = uploadRef.putFile(file);
         photoDBPath = "images/"+file.getLastPathSegment();
@@ -175,7 +175,7 @@ public class CameraActivity extends Activity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        /*
+
         try {
             Log.d("__RESPONSE", GVision.callGVis(mCurrentPhotoPath).toString());
         } catch (Exception ex){
@@ -183,7 +183,5 @@ public class CameraActivity extends Activity {
         }
         */
     }
-=======
->>>>>>> broken_imports
 
-}
+

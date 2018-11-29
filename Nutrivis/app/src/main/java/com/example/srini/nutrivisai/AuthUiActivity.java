@@ -28,19 +28,14 @@ public class AuthUiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth_ui);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
             startActivity( new Intent(AuthUiActivity.this, MainActivity.class));
-            //startActivity(new Intent(MainActivity.this.getActivity(), MainActivity.class));
             finish();
         }else {
             showSignInScreen();
         }
-
     }
 
     private void showSignInScreen() {
@@ -66,12 +61,11 @@ public class AuthUiActivity extends AppCompatActivity {
             return;
         }
 
-        // showSnackbar(R.string.unknown_response);
     }
     @MainThread
     private void handleSignInResponse(int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            Intent in = new Intent(this, MainActivity.class);
+            Intent in = new Intent(this, Splash.class);
             in.putExtra(ExtraConstants.IDP_RESPONSE, IdpResponse.fromResultIntent(data));
             startActivity(in);
             finish();

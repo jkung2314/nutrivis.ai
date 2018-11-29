@@ -11,6 +11,7 @@ public class Food {
     private double calorieCount;
     private String dateScanned;
     private String url;
+    private double servings = 1.0;
 
     @SuppressLint("NewApi")
     public Food(String foodName, double fatContent, double calorieCount, String url){
@@ -30,6 +31,9 @@ public class Food {
 
     public String getName(){
         return name;
+    }
+    public String getServings(){
+        return String.valueOf(servings);
     }
 
     public double getFatContent(){

@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
                     createEventIntent.putExtra("fat",f.getFatContent()+"g");
                     createEventIntent.putExtra("url",f.getURL());
                     createEventIntent.putExtra("date",f.getDateScanned());
+                    createEventIntent.putExtra("servings",f.getServings());
                     startActivity(createEventIntent);
                 }
             }
@@ -142,14 +143,17 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         String path = i.getStringExtra("imagePath");
         HashMap map = GVision.callGVis(path);
         Log.d("TAG", "Map of preds: " + Arrays.asList(map));
-        String finalFood = ResolveFood.resolveFood(map);
+        String finalFood = ResolveFood.resolveFood(map, context);
         Log.d("TAG", "Final Food: " + finalFood);
         AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
         try {
             String n = nutrition.get();
-            Log.d("TAG" , "nutrition info: " + n);
+            if (n == null) {
+                Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
+            }
         } catch (Exception e ) {
-            e.printStackTrace(); // FOOD NOT IDENTIFIED
+            // e.printStackTrace(); // FOOD NOT IDENTIFIED
+            Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
         }
     }
     @Override
@@ -158,7 +162,4 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-
-
 }

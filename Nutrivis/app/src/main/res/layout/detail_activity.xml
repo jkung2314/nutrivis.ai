@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.srini.nutrivisai.MainActivity"
-    tools:backgroundTint="@android:color/background_light"
+    tools:backgroundTint="@android:color/black"
     android:background="#FFFFFF">
 
     <android.support.v7.widget.Toolbar
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/fui_bgEmail"
+        android:background="@color/jet"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"

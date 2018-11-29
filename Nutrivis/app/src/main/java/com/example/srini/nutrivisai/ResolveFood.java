@@ -1,8 +1,12 @@
 package com.example.srini.nutrivisai;
 
+import android.content.Context;
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,14 +22,14 @@ import java.util.Set;
 
 public class ResolveFood {
 
-    public static String resolveFood(HashMap<String, Float> map) {
+    public static String resolveFood(HashMap<String, Float> map, Context context) {
         HashMap<String, Float> newMap = sortByValues(map);
 
         ArrayList list = new ArrayList(newMap.keySet());
         for (int i = list.size() - 1; i >= 0; i--) {
             String key = (String) list.get(i);
             Log.d("TAG", "KeyLISTSET: " + key + ", Value: " + newMap.get(key));
-            if(isFood(key)) {
+            if(isFood(key, context)) {
                 return key;
             } else {
                 continue;
@@ -35,15 +39,32 @@ public class ResolveFood {
         return "Food not identified";
     }
 
-    private static boolean isFood(String food) {
+    private static boolean isFood(String food, Context context) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(context.getAssets().open("foods.txt")));
 
-        // NEED AN ALGORITHM
-
-        if (food.equals("banana")) {
-            return true;
-        } else {
-            return false;
+            // do reading, usually loop until end of file reading
+            String mLine;
+            while ((mLine = reader.readLine()) != null) {
+                // Log.d("TAG", "INPUTLINE: " + mLine);
+                if (food.equals(mLine)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
+        return false;
     }
 
 

@@ -7,6 +7,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
+
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.UploadTask;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,12 +36,18 @@ import java.net.ProtocolException;
 import java.lang.reflect.Array;
 
 import java.net.URI;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> broken_imports
 
 import com.google.firebase.storage.*;
+import com.google.gson.Gson;
 
 public class CameraActivity extends Activity {
 
@@ -47,11 +56,21 @@ public class CameraActivity extends Activity {
     private String mCurrentPhotoPath;
     private Intent takePictureIntent;
     private String photoDBPath;
+    public Uri photoUri = new Uri.Builder().build();
+
+    private DataManagement dm;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle bundle = getIntent().getExtras();
+
+        FirebaseUser user = (FirebaseUser)bundle.get("user");
+        Log.e("_______", user.getDisplayName());
+        dm = new DataManagement(user);
+
         setContentView(R.layout.activity_camera);
         dispatchTakePictureIntent();
     }
@@ -65,7 +84,8 @@ public class CameraActivity extends Activity {
             image = (ImageView) findViewById(R.id.img);
             image.setImageBitmap(data);
 
-            uploadPhotoToStorage();
+            dm.uploadPhotoToStorage(mCurrentPhotoPath);
+
 
             NutritionixTask task = new NutritionixTask();
             try {
@@ -84,6 +104,7 @@ public class CameraActivity extends Activity {
             Intent i = new Intent(getApplicationContext(),MainActivity.class); // wherever this needs to be redirected
 
             i.putExtra("imagePath", mCurrentPhotoPath);
+            i.putExtra("photoUri", photoUri);
             startActivity(i);
 
         }
@@ -132,12 +153,9 @@ public class CameraActivity extends Activity {
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
     }
-    private void uploadPhotoToStorage() {
 
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
 
+<<<<<<< HEAD
         final StorageReference uploadRef = storageRef.child("images/"+file.getLastPathSegment());
         UploadTask uploadTask = uploadRef.putFile(file);
         photoDBPath = "images/"+file.getLastPathSegment();
@@ -165,5 +183,7 @@ public class CameraActivity extends Activity {
         }
         */
     }
+=======
+>>>>>>> broken_imports
 
 }

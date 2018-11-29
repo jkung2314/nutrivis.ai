@@ -11,8 +11,7 @@
 
     <include
         layout="@layout/content_splash"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" />
+     />
 
     <ProgressBar
         style="@android:style/Widget.DeviceDefault.ProgressBar"

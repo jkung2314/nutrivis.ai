@@ -73,7 +73,7 @@ public class Splash extends AppCompatActivity {
     public void getUserData(FirebaseUser user) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            final DocumentReference docRef = db.collection("userData").document(user.getUid());
+            final DocumentReference docRef = db.collection("userData").document("Ykl4hfuXneUYojo9hjTKdiuWxC82");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {

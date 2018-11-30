@@ -148,5 +148,25 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         super.onResume();
         CustomAdapter adapter = new CustomAdapter(this,foods);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent createEventIntent = new Intent(context, DetailActivity.class);
+
+                if(foods.size()>1) {
+                    Food f = foods.get(position);
+                    createEventIntent.putExtra("name",f.getName());
+                    createEventIntent.putExtra("cal",f.getCalorieCount()+"g");
+                    createEventIntent.putExtra("fat",f.getFatContent()+"g");
+                    createEventIntent.putExtra("url",f.getURL());
+                    createEventIntent.putExtra("date",f.getDateScanned());
+                    createEventIntent.putExtra("servings",f.getServings());
+                    startActivity(createEventIntent);
+                }
+            }
+
+        });
     }
 }

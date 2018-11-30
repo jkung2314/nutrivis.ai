@@ -51,8 +51,14 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
         String url = "https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg";
         String url2 = "https://www.seriouseats.com/recipes/images/2016/08/20160827-cherry-tomato-pasta-13-1500x1125.jpg";
-        listItems.add(new Food("Pizza",30.0,2000.0,url));
-        listItems.add(new Food("Pasta",20.0,1000.0,url2));
+        Food f = new Food("Pizza",30.0,2000.0,url);
+        Food f2 = new Food("Pasta",20.0,1000.0,url2);
+        Log.d("__Fake's Foods", f.toString());
+        Log.d("__Fake's Foods", f2.toString());
+        listItems.add(f);
+        listItems.add(f2);
+
+
 
         CustomAdapter adapter = new CustomAdapter(this,listItems);
         listView.setAdapter(adapter);

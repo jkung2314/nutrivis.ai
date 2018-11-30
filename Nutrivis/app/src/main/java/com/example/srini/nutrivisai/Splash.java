@@ -57,7 +57,7 @@ public class Splash extends AppCompatActivity {
     }
     public void createUser(DocumentReference docref){
         HashMap data = new HashMap();
-        data.put("new_user", 1);
+        data.put("name", mFirebaseUser.getDisplayName());
         docref.set(data).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -72,7 +72,7 @@ public class Splash extends AppCompatActivity {
     public void getUserData(FirebaseUser user) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            final DocumentReference docRef = db.collection("userData").document(user.getUid());
+            final DocumentReference docRef = db.collection("userData").document(user.getUid()+".foods");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {

@@ -1,5 +1,7 @@
 package com.example.srini.nutrivisai;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -19,7 +21,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class DataManagement {
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
+
+public class DataManagement extends Activity {
     public String TAG = "__DATA_MGMT";
     private FirebaseFirestore db;
     private FirebaseUser user;
@@ -28,12 +32,25 @@ public class DataManagement {
         this.db = FirebaseFirestore.getInstance();
         this.user = mUser;
     }
+    public void triggerMain(HashMap food, String relPath){
+        Intent in = new Intent( this, MainActivity.class);
+        in.putExtra("relPath", relPath);
+        in.putExtra("uri", food.get("uri").toString());
+        startActivity(in);
+    }
 
-    public void pushFood(HashMap food) {
+    public void pushFood(final HashMap food, final String relPath) {
         DocumentReference docRef = db.collection("userData").document(user.getUid());
 
 
-        docRef.update("foods", FieldValue.arrayUnion(food));
+        docRef.update("foods", FieldValue.arrayUnion(food)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                triggerMain(food,relPath );
+            }
+        });
+
+
     }
 
     // Jonathan, this was the only working pull code I had
@@ -57,7 +74,7 @@ public class DataManagement {
         });
     }
 
-    private void getUri(StorageReference storageRef, final HashMap food) {
+    private void getUri(StorageReference storageRef, final HashMap food, final String relPath) {
 
         storageRef.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
             @Override
@@ -78,7 +95,7 @@ public class DataManagement {
                 }
                 food.put("uri", photoUri.toString());
                 // push food with new uri
-                pushFood(food);
+                pushFood(food, relPath);
             }
         });
 
@@ -102,7 +119,7 @@ public class DataManagement {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.d(TAG, "PHOTO " + photoDBPath + " WAS UPLOADED!");
-                getUri(uploadRef, new HashMap());
+                getUri(uploadRef, new HashMap(), photoDBPath);
             }
         });
 

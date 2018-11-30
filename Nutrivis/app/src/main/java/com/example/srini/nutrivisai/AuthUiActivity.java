@@ -41,7 +41,7 @@ public class AuthUiActivity extends AppCompatActivity {
     private void showSignInScreen() {
         startActivityForResult(
                 AuthUI.getInstance().createSignInIntentBuilder()
-                        .setTheme(R.style.FirebaseLoginTheme)
+                        .setTheme(R.style.AppTheme)
                         .setLogo(R.drawable.logo_transparent)      // Set logo drawable
 //                        .setTheme(R.style.AppTheme)
                         .setAvailableProviders(Arrays.asList(

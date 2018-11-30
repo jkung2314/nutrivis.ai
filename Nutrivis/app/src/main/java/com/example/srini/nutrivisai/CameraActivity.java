@@ -98,11 +98,11 @@ public class CameraActivity extends Activity {
                 Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
         }
 
-            Intent i = new Intent(getApplicationContext(),MainActivity.class); // wherever this needs to be redirected
-
-            i.putExtra("imagePath", mCurrentPhotoPath);
-            i.putExtra("photoUri", photoUri);
-            startActivity(i);
+//            Intent i = new Intent(getApplicationContext(),MainActivity.class); // wherever this needs to be redirected
+//
+//            i.putExtra("imagePath", mCurrentPhotoPath);
+//            i.putExtra("photoUri", photoUri);
+//            startActivity(i);
 
         }
     }

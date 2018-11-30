@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     private void runTask(){
         Intent i = getIntent();
         String path = i.getStringExtra("imagePath");
+        Log.e("__UIR AND PATH", i.getStringExtra("uri")+ "   "+i.getStringExtra("relpath"));
         HashMap map = GVision.callGVis(path);
         Log.d("TAG", "Map of preds: " + Arrays.asList(map));
         String finalFood = ResolveFood.resolveFood(map, context);

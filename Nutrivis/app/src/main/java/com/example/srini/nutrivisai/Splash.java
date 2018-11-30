@@ -17,6 +17,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Splash extends AppCompatActivity {
@@ -49,7 +50,7 @@ public class Splash extends AppCompatActivity {
         }
     }
 
-    public void triggerMain(String[] docs){
+    public void triggerMain(ArrayList<String> docs){
         Intent in = new Intent(this, MainActivity.class);
         in.putExtra("docs", docs);
         startActivity(in);
@@ -72,7 +73,7 @@ public class Splash extends AppCompatActivity {
     public void getUserData(FirebaseUser user) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            final DocumentReference docRef = db.collection("userData").document(user.getUid());
+            final DocumentReference docRef = db.collection("userData").document("Ykl4hfuXneUYojo9hjTKdiuWxC82");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -80,7 +81,7 @@ public class Splash extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Log.d(TAG, "DocumentSnapshot data: " + document.get("foods"));
-                            triggerMain( (String[]) document.get("foods"));
+                            triggerMain( (ArrayList<String>) document.get("foods"));
 
                         } else {
                             Log.e(TAG, "No such document");

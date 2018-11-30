@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
         try{
             Bundle extras =  getIntent().getExtras();
-            String docs = extras.getString("docs");
-            Log.d("__User's Data", docs);
+            ArrayList docs = extras.getStringArrayList("docs");
+            Log.d("__User's Data", docs.toString());
         }catch (Exception e){
             Log.e("__User's Data", "FAILED TO FIND");
             e.printStackTrace();

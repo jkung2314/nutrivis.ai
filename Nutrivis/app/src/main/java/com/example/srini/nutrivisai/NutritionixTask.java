@@ -26,7 +26,7 @@ public class NutritionixTask {
             request.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             request.setRequestProperty("x-app-key", "ca79da43af470d366a9037cf2265f4a6");
             request.setRequestProperty("x-app-id", "e3b1fdc1");
-            //set query param
+            // Set query param
             String param = "query=" + foods[i];
             //required for POST, allows to write to the connection
             request.setDoOutput(true);

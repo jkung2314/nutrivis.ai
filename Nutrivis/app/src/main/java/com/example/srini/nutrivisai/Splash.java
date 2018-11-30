@@ -54,8 +54,8 @@ public class Splash extends AppCompatActivity {
         Intent in = new Intent(this, MainActivity.class);
         in.putExtra("docs", docs);
         startActivity(in);
-
     }
+
     public void createUser(DocumentReference docref){
         HashMap data = new HashMap();
         data.put("name", mFirebaseUser.getDisplayName());

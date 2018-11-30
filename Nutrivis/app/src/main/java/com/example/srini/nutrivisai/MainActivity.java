@@ -81,16 +81,9 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(context,CameraActivity.class);//change to camera activity
-
                 i.putExtra("user", mFirebaseAuth.getCurrentUser());
-                //DataManagement dm = new DataManagement(mFirebaseUser);
-                //i.putExtra("dm",( new Gson().toJson(dm)));
                 startActivity(i);
-
-
-
             }
         });
 
@@ -102,9 +95,6 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
                 mFirebaseAuth.signOut();
                 Intent i = new Intent(context,AuthUiActivity.class);
                 startActivity(i);
-
-
-
             }
         });
         runTask();
@@ -123,16 +113,8 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         Intent i = getIntent();
 
         String path = i.getStringExtra("imagePath");
-        try {
-            String u = i.getStringExtra("uri");
-            if (u == null){
-                return;
-            }
-            Log.e("__UIR AND PATH", u + "   " + i.getStringExtra("relPath"));
-        }
-        catch (Exception e){
-            return;
-        }
+        Log.e("__UIR AND PATH", path + "   " + i.getStringExtra("relPath"));
+
 
         HashMap map = GVision.callGVis(path);
         Log.d("TAG", "Map of preds: " + Arrays.asList(map));
@@ -142,6 +124,9 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         try {
             String n = nutrition.get();
             Food f = NutritionixParser.parse(n);
+
+            DataManagement dm = new DataManagement(mFirebaseUser);
+            dm.pushFood(f, path);
             if (n == null) {
                 //Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
             }

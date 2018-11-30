@@ -51,5 +51,8 @@ public class Food {
     public String getURL(){
         return url;
     }
+    public void setUrl(String URL){
+        this.url = URL;
+    }
 }
 

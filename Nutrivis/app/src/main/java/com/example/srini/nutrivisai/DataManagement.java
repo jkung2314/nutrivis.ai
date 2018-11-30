@@ -32,21 +32,21 @@ public class DataManagement extends Activity {
         this.db = FirebaseFirestore.getInstance();
         this.user = mUser;
     }
-    public void triggerMain(HashMap food, String relPath){
+    public void triggerMain(String uri, String relPath){
         Intent in = new Intent( this, MainActivity.class);
         in.putExtra("relPath", relPath);
-        in.putExtra("uri", food.get("uri").toString());
+        in.putExtra("uri", uri);
         startActivity(in);
     }
 
-    public void pushFood(final HashMap food, final String relPath) {
+    public void pushFood(final Food f, final String relPath) {
         DocumentReference docRef = db.collection("userData").document(user.getUid());
 
 
-        docRef.update("foods", FieldValue.arrayUnion(food)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        docRef.update("foods", FieldValue.arrayUnion(f.toString())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                triggerMain(food,relPath );
+                triggerMain(f.getURL(),relPath );
             }
         });
 
@@ -74,7 +74,7 @@ public class DataManagement extends Activity {
         });
     }
 
-    private void getUri(StorageReference storageRef, final HashMap food, final String relPath) {
+    private void getUri(StorageReference storageRef, final Food f, final String relPath) {
 
         storageRef.getDownloadUrl().addOnFailureListener(new OnFailureListener() {
             @Override
@@ -87,21 +87,22 @@ public class DataManagement extends Activity {
                 Log.d(TAG, "URL: " + photoUri.toString());
                 // add values to food map if empty, FOR TESTING
                 // eventually, this will be replaced with full map from NX
-                if (food.isEmpty()) {
-                    food.put("Fat", "0 grams");
-                    food.put("Sodium", "0 gram");
-                    food.put("Carbs", "0 grams");
-                    food.put("Name", "test pic");
-                }
-                food.put("uri", photoUri.toString());
-                // push food with new uri
-                pushFood(food, relPath);
+//                if (food.isEmpty()) {
+//                    food.put("Fat", "0 grams");
+//                    food.put("Sodium", "0 gram");
+//                    food.put("Carbs", "0 grams");
+//                    food.put("Name", "test pic");
+//                }
+//                food.put("uri", photoUri.toString());
+//                // push food with new uri
+                f.setUrl(photoUri.toString());
+                pushFood(f, relPath);
             }
         });
 
     }
 
-    public void uploadPhotoToStorage(String mCurrentPhotoPath) {
+    public void uploadPhotoToStorage(final Food f, String mCurrentPhotoPath) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         final StorageReference storageRef = storage.getReference();
         Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
@@ -119,7 +120,7 @@ public class DataManagement extends Activity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.d(TAG, "PHOTO " + photoDBPath + " WAS UPLOADED!");
-                getUri(uploadRef, new HashMap(), photoDBPath);
+                getUri(uploadRef, f, photoDBPath);
             }
         });
 

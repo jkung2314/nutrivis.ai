@@ -1,50 +1,26 @@
 package com.example.srini.nutrivisai;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import com.google.android.gms.tasks.*;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.Image;
-
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.UploadTask;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-
 import java.io.File;
 import java.io.IOException;
-
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 
-import java.lang.reflect.Array;
-
-import java.net.URI;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+
 import java.util.Date;
-import java.util.HashMap;
 
-
-import com.google.firebase.storage.*;
-import com.google.gson.Gson;
 
 public class CameraActivity extends Activity {
 
@@ -55,8 +31,7 @@ public class CameraActivity extends Activity {
     private String photoDBPath;
     public Uri photoUri = new Uri.Builder().build();
 
-    private DataManagement dm;
-
+  //  private DataManagement dm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +41,7 @@ public class CameraActivity extends Activity {
 
         FirebaseUser user = (FirebaseUser)bundle.get("user");
         Log.e("_______", user.getDisplayName());
-        dm = new DataManagement(user);
+       // dm = new DataManagement(user);
 
         setContentView(R.layout.activity_camera);
         dispatchTakePictureIntent();
@@ -81,28 +56,29 @@ public class CameraActivity extends Activity {
             image = (ImageView) findViewById(R.id.img);
             image.setImageBitmap(data);
 
-            dm.uploadPhotoToStorage(mCurrentPhotoPath);
+          //  dm.uploadPhotoToStorage(mCurrentPhotoPath);
 
-
-            NutritionixTask task = new NutritionixTask();
-            try {
-                task.getNutritionInfo("pizza");
-               // Toast.makeText(getApplicationContext(),"Image Uploaded " + task.getNutritionInfo("ass"),Toast.LENGTH_SHORT).show();
-
-            }
-        catch(MalformedURLException e){
-
-        }catch(ProtocolException e){
-
-        }catch(IOException e){
-                Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
-        }
-
-//            Intent i = new Intent(getApplicationContext(),MainActivity.class); // wherever this needs to be redirected
 //
-//            i.putExtra("imagePath", mCurrentPhotoPath);
-//            i.putExtra("photoUri", photoUri);
-//            startActivity(i);
+//            NutritionixTask task = new NutritionixTask();
+//            try {
+//                task.getNutritionInfo("pizza");
+//               // Toast.makeText(getApplicationContext(),"Image Uploaded " + task.getNutritionInfo("ass"),Toast.LENGTH_SHORT).show();
+//
+//            }
+//        catch(MalformedURLException e){
+//
+//        }catch(ProtocolException e){
+//
+//        }catch(IOException e){
+//                Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
+//        }
+
+            Intent i = new Intent(getApplicationContext(),MainActivity.class); // wherever this needs to be redirected
+
+            i.putExtra("imagePath", mCurrentPhotoPath);
+            Log.d("____PATH", mCurrentPhotoPath);
+            //i.putExtra("photoUri", photoUri);
+            startActivity(i);
 
         }
     }

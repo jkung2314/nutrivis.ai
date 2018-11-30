@@ -28,8 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:maxWidth="30dp"
-            android:maxHeight="30dp"
+            android:layout_marginTop="15dp"
+            android:maxWidth="35dp"
+            android:maxHeight="35dp"
             android:scaleType="fitStart"
             android:layout_marginLeft="-200dp"
 
@@ -43,14 +44,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginLeft="530dp"
             android:adjustViewBounds="true"
             android:background="@color/jet"
 
 
-            android:maxWidth="20dp"
-            android:maxHeight="20dp"
+            android:maxWidth="25dp"
+            android:maxHeight="25dp"
             android:scaleType="centerInside"
-            android:src="@drawable/logout" />
+            android:src="@drawable/logoutrightone"
+            />
 
     </android.support.v7.widget.Toolbar>
 

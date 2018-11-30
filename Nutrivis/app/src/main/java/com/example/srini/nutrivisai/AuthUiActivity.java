@@ -43,7 +43,7 @@ public class AuthUiActivity extends AppCompatActivity {
                 AuthUI.getInstance().createSignInIntentBuilder()
                         .setTheme(R.style.FirebaseLoginTheme)
                         .setLogo(R.drawable.logo_transparent)      // Set logo drawable
-//                        .setTheme(R.style.AppTheme)
+                        .setTheme(R.style.AppTheme)
                         .setAvailableProviders(Arrays.asList(
                                 new AuthUI.IdpConfig.EmailBuilder().build(),
                                 new AuthUI.IdpConfig.GoogleBuilder().build()))

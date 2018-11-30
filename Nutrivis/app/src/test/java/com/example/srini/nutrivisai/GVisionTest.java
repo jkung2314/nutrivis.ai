@@ -29,7 +29,7 @@ public class GVisionTest {
     @Test
     public void verifyGVisionIntegrity() {
         assertNotNull(viz.toString());
-        assertEquals("https://vision.googleapis.com/", viz.vision.getBaseUrl());
+        assertEquals("https://vision.googleapis.com", viz.vision.getBaseUrl());
     }
 
     @Test

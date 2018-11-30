@@ -37,13 +37,19 @@
 
         <ImageButton
             android:id="@+id/signout"
-            android:layout_height="wrap_content"
+            style="@android:style/Widget.DeviceDefault.ImageButton"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="500dp"
             android:adjustViewBounds="true"
-            android:layout_marginLeft="470dp"
-            android:maxWidth="50dp"
-            android:maxHeight="50dp"
-            android:scaleType="fitStart"
+            android:background="@color/jet"
+
+
+            android:maxWidth="25dp"
+            android:maxHeight="25dp"
+            android:scaleType="centerInside"
             android:src="@drawable/logoutrightone"
 
             />

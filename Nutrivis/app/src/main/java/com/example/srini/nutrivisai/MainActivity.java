@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
         try {
             String n = nutrition.get();
+            Food f = NutritionixParser.parse(n);
             if (n == null) {
                 Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
             }

@@ -17,6 +17,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+
 public class Splash extends AppCompatActivity {
 
 
@@ -43,7 +45,7 @@ public class Splash extends AppCompatActivity {
             String mEmailAddress = mFirebaseUser.getEmail();
             Log.d("__login user", mUsername + "    " + mEmailAddress);
 
-            getUserData(FirebaseFirestore.getInstance(), mFirebaseUser);
+            getUserData(mFirebaseUser);
         }
     }
 
@@ -53,11 +55,24 @@ public class Splash extends AppCompatActivity {
         startActivity(in);
 
     }
+    public void createUser(DocumentReference docref){
+        HashMap data = new HashMap();
+        data.put("new_user", 1);
+        docref.set(data).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                // Try again now that the user has been created
+                getUserData(mFirebaseUser);
+            }
+            });
+        }
+
 
     public String TAG = "__getUserData";
-    public void getUserData(FirebaseFirestore db, FirebaseUser user) {
+    public void getUserData(FirebaseUser user) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-            DocumentReference docRef = db.collection("userData").document(user.getUid());
+            final DocumentReference docRef = db.collection("userData").document(user.getUid());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -69,6 +84,7 @@ public class Splash extends AppCompatActivity {
 
                         } else {
                             Log.e(TAG, "No such document");
+                            createUser(docRef);
                         }
                     } else {
                         Log.e(TAG, "get failed with ", task.getException());

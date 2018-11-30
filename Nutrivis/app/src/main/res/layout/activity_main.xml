@@ -28,8 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:maxWidth="42dp"
-            android:maxHeight="42dp"
+            android:maxWidth="30dp"
+            android:maxHeight="30dp"
             android:scaleType="fitStart"
             android:layout_marginLeft="-200dp"
 
@@ -41,12 +41,13 @@
             style="@android:style/Widget.DeviceDefault.ImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="510dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
             android:adjustViewBounds="true"
-            android:background="@color/black"
+            android:background="@color/jet"
 
 
-            android:maxWidth="40dp"
+            android:maxWidth="20dp"
             android:maxHeight="20dp"
             android:scaleType="centerInside"
             android:src="@drawable/logout" />

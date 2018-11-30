@@ -26,14 +26,15 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
     public FirebaseAuth mFirebaseAuth;
     public FirebaseUser mFirebaseUser;
-
+    private ListView listView;
+    private final ArrayList<Food> foods= new ArrayList<Food>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        final ArrayList<Food> foods= new ArrayList<Food>();
+
 
         try{
             Bundle extras =  getIntent().getExtras();
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
             e.printStackTrace();
         }
         setContentView(R.layout.activity_main);
-        ListView listView = findViewById(R.id.lv);
+         listView = findViewById(R.id.lv);
 
         CustomAdapter adapter = new CustomAdapter(this,foods);
         listView.setAdapter(adapter);
@@ -140,5 +141,12 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CustomAdapter adapter = new CustomAdapter(this,foods);
+        listView.setAdapter(adapter);
     }
 }

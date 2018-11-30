@@ -49,7 +49,7 @@ public class Splash extends AppCompatActivity {
         }
     }
 
-    public void triggerMain(String docs){
+    public void triggerMain(String[] docs){
         Intent in = new Intent(this, MainActivity.class);
         in.putExtra("docs", docs);
         startActivity(in);
@@ -80,7 +80,7 @@ public class Splash extends AppCompatActivity {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             Log.d(TAG, "DocumentSnapshot data: " + document.get("foods"));
-                            triggerMain( document.getData().toString());
+                            triggerMain( (String[]) document.get("foods"));
 
                         } else {
                             Log.e(TAG, "No such document");

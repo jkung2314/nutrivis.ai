@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
-
 public class MainActivity extends AppCompatActivity implements AsyncRequester{
     private final Context context = this;
 
@@ -35,11 +33,17 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        final ArrayList<Food> foods= new ArrayList<Food>();
 
         try{
             Bundle extras =  getIntent().getExtras();
             ArrayList docs = extras.getStringArrayList("docs");
             Log.d("__User's Data", docs.toString());
+
+            for(Object s:docs){
+                foods.add(StringtoFoodParser.stringToFood(s.toString()));
+            }
+
         }catch (Exception e){
             Log.e("__User's Data", "FAILED TO FIND");
             e.printStackTrace();
@@ -47,20 +51,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         setContentView(R.layout.activity_main);
         ListView listView = findViewById(R.id.lv);
 
-        final ArrayList<Food> listItems = new ArrayList<Food>();
-
-        String url = "https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg";
-        String url2 = "https://www.seriouseats.com/recipes/images/2016/08/20160827-cherry-tomato-pasta-13-1500x1125.jpg";
-        Food f = new Food("Pizza",30.0,2000.0,url);
-        Food f2 = new Food("Pasta",20.0,1000.0,url2);
-        Log.d("__Fake's Foods", f.toString());
-        Log.d("__Fake's Foods", f2.toString());
-        listItems.add(f);
-        listItems.add(f2);
-
-
-
-        CustomAdapter adapter = new CustomAdapter(this,listItems);
+        CustomAdapter adapter = new CustomAdapter(this,foods);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -69,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent createEventIntent = new Intent(context, DetailActivity.class);
 
-                if(listItems.size()>1) {
-                    Food f = listItems.get(position);
+                if(foods.size()>1) {
+                    Food f = foods.get(position);
                     createEventIntent.putExtra("name",f.getName());
                     createEventIntent.putExtra("cal",f.getCalorieCount()+"g");
                     createEventIntent.putExtra("fat",f.getFatContent()+"g");
@@ -140,11 +131,11 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
             String n = nutrition.get();
             Food f = NutritionixParser.parse(n);
             if (n == null) {
-                Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e ) {
             // e.printStackTrace(); // FOOD NOT IDENTIFIED
-            Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
         }
     }
     @Override

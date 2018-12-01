@@ -28,14 +28,21 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     public FirebaseUser mFirebaseUser;
     private ListView listView;
     private final ArrayList<Food> foods= new ArrayList<Food>();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 237a8c91b74e8e0b29c1c7ffdf32fdb198b79927
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
+<<<<<<< HEAD
        //final ArrayList<Food> foods= new ArrayList<Food>();
+=======
+
+>>>>>>> 237a8c91b74e8e0b29c1c7ffdf32fdb198b79927
 
         try{
             Bundle extras =  getIntent().getExtras();
@@ -51,8 +58,12 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
             e.printStackTrace();
         }
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
         listView = findViewById(R.id.lv);
 
+=======
+         listView = findViewById(R.id.lv);
+>>>>>>> 237a8c91b74e8e0b29c1c7ffdf32fdb198b79927
 
         CustomAdapter adapter = new CustomAdapter(this,foods);
         listView.setAdapter(adapter);
@@ -152,10 +163,37 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 237a8c91b74e8e0b29c1c7ffdf32fdb198b79927
     @Override
     protected void onResume() {
         super.onResume();
         CustomAdapter adapter = new CustomAdapter(this,foods);
         listView.setAdapter(adapter);
+<<<<<<< HEAD
+=======
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent createEventIntent = new Intent(context, DetailActivity.class);
+
+                if(foods.size()>1) {
+                    Food f = foods.get(position);
+                    createEventIntent.putExtra("name",f.getName());
+                    createEventIntent.putExtra("cal",f.getCalorieCount()+"g");
+                    createEventIntent.putExtra("fat",f.getFatContent()+"g");
+                    createEventIntent.putExtra("url",f.getURL());
+                    createEventIntent.putExtra("date",f.getDateScanned());
+                    createEventIntent.putExtra("servings",f.getServings());
+                    startActivity(createEventIntent);
+                }
+            }
+
+        });
+>>>>>>> 237a8c91b74e8e0b29c1c7ffdf32fdb198b79927
     }
 }

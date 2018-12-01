@@ -56,14 +56,11 @@ public class CameraActivity extends Activity {
             image = (ImageView) findViewById(R.id.img);
             image.setImageBitmap(data);
 
-          //  dm.uploadPhotoToStorage(mCurrentPhotoPath);
-
-//
+//            dm.uploadPhotoToStorage(mCurrentPhotoPath);
 //            NutritionixTask task = new NutritionixTask();
 //            try {
 //                task.getNutritionInfo("pizza");
-//               // Toast.makeText(getApplicationContext(),"Image Uploaded " + task.getNutritionInfo("ass"),Toast.LENGTH_SHORT).show();
-//
+//                Toast.makeText(getApplicationContext(),"Image Uploaded " + task.getNutritionInfo("ass"),Toast.LENGTH_SHORT).show();
 //            }
 //        catch(MalformedURLException e){
 //
@@ -76,7 +73,7 @@ public class CameraActivity extends Activity {
             Intent i = new Intent(getApplicationContext(),MainActivity.class); // wherever this needs to be redirected
 
             i.putExtra("imagePath", mCurrentPhotoPath);
-            Log.d("____PATH", mCurrentPhotoPath);
+            //Log.d("____PATH", mCurrentPhotoPath);
             //i.putExtra("photoUri", photoUri);
             startActivity(i);
 

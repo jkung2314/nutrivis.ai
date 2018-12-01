@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
     public FirebaseAuth mFirebaseAuth;
     public FirebaseUser mFirebaseUser;
+    private ListView listView;
+    private final ArrayList<Food> foods= new ArrayList<Food>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        final ArrayList<Food> foods= new ArrayList<Food>();
+       //final ArrayList<Food> foods= new ArrayList<Food>();
 
         try{
             Bundle extras =  getIntent().getExtras();
@@ -49,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
             e.printStackTrace();
         }
         setContentView(R.layout.activity_main);
-        ListView listView = findViewById(R.id.lv);
+        listView = findViewById(R.id.lv);
+
 
         CustomAdapter adapter = new CustomAdapter(this,foods);
         listView.setAdapter(adapter);
@@ -111,9 +114,10 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     /*use this method to start the async request*/
     private void runTask(){
         Intent i = getIntent();
+        Food f;
 
         String path = i.getStringExtra("imagePath");
-        Log.e("__UIR AND PATH", path + "   " + i.getStringExtra("relPath"));
+        Log.e("__UIR AND PATH", path + "   " + i.getStringExtra("uri"));
 
 
         HashMap map = GVision.callGVis(path);
@@ -123,22 +127,35 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
         try {
             String n = nutrition.get();
-            Food f = NutritionixParser.parse(n);
+            f = NutritionixParser.parse(n);
 
+
+
+
+
+             //f = new Food("test_food", 50.0, 70, "NOSTRING" );
             DataManagement dm = new DataManagement(mFirebaseUser);
-            dm.pushFood(f, path);
-            if (n == null) {
-                //Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
-            }
+            dm.uploadPhotoToStorage(f, path);
+
         } catch (Exception e ) {
-            // e.printStackTrace(); // FOOD NOT IDENTIFIED
+
+            e.printStackTrace();
             //Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
         }
+            // e.printStackTrace(); // FOOD NOT IDENTIFIED
+            //Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CustomAdapter adapter = new CustomAdapter(this,foods);
+        listView.setAdapter(adapter);
     }
 }

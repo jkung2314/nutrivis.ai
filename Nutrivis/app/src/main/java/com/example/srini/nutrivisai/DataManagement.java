@@ -27,52 +27,71 @@ public class DataManagement extends Activity {
     public String TAG = "__DATA_MGMT";
     private FirebaseFirestore db;
     private FirebaseUser user;
+    public String uri;
 
     DataManagement(FirebaseUser mUser) {
         this.db = FirebaseFirestore.getInstance();
         this.user = mUser;
     }
-    public void triggerMain(String uri, String relPath){
-        Intent in = new Intent( this, MainActivity.class);
-        in.putExtra("relPath", relPath);
-        in.putExtra("uri", uri);
-        startActivity(in);
-    }
+
 
     public void pushFood(final Food f, final String relPath) {
         DocumentReference docRef = db.collection("userData").document(user.getUid());
 
-
+        uri = f.getURL();
         docRef.update("foods", FieldValue.arrayUnion(f.toString())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                triggerMain(f.getURL(),relPath );
+                getUserData(relPath );
+                Log.e("____TRINNER MAIN BINDLE VALS", f.getURL()+"   " +relPath);
             }
         });
 
 
     }
 
-    // Jonathan, this was the only working pull code I had
-    public void getDocument(FirebaseFirestore db, FirebaseUser user) {
 
-        DocumentReference docRef = db.collection("userData").document(user.getUid());
+    public void triggerMain(String relPath, ArrayList<String> docs){
+
+
+            Intent in = new Intent( this, MainActivity.class);
+            in.putExtra("relPath", relPath);
+            in.putExtra("uri", uri);
+
+
+
+        in.putExtra("docs", docs);
+
+
+        startActivity(in);
+    }
+
+
+
+    public void getUserData( final String relPath) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        final DocumentReference docRef = db.collection("userData").document(user.getUid());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        Log.d(TAG, "DocumentSnapshot data: " + document.get("foods"));
+                        triggerMain(relPath, (ArrayList<String>) document.get("foods"));
+
                     } else {
-                        Log.d(TAG, "No such document");
+                        Log.e(TAG, "No such document");
+
                     }
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    Log.e(TAG, "get failed with ", task.getException());
                 }
             }
         });
     }
+
 
     private void getUri(StorageReference storageRef, final Food f, final String relPath) {
 
@@ -103,6 +122,8 @@ public class DataManagement extends Activity {
     }
 
     public void uploadPhotoToStorage(final Food f, String mCurrentPhotoPath) {
+//        mCurrentPhotoPath = "/Users/daniel/tmp/nutrivis.ai/Nutrivis/app/src/main/java/com/example/srini/nutrivisai/food.jpeg";
+
         FirebaseStorage storage = FirebaseStorage.getInstance();
         final StorageReference storageRef = storage.getReference();
         Uri file = Uri.fromFile(new File(mCurrentPhotoPath));

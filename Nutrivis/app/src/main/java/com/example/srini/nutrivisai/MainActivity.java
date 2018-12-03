@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent createEventIntent = new Intent(context, DetailActivity.class);
 
-                if(foods.size()>1) {
+                if(foods.size()>0) {
                     Food f = foods.get(position);
                     createEventIntent.putExtra("name",f.getName());
                     createEventIntent.putExtra("cal",f.getCalorieCount()+"g");
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent createEventIntent = new Intent(context, DetailActivity.class);
 
-                if(foods.size()>1) {
+                if(foods.size()>0) {
                     Food f = foods.get(position);
                     createEventIntent.putExtra("name",f.getName());
                     createEventIntent.putExtra("cal",f.getCalorieCount()+"g");

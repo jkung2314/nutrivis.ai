@@ -130,8 +130,9 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
         AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
         try {
             String n = nutrition.get();
-            // f = NutritionixParser.parse(n);
-            Food f = new Food("Pizz",30.0, 2000.0, " https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg");
+            Food f = NutritionixParser.parse(n);
+            Log.e("TAG", f.toString());
+            //Food f = new Food("Pizz",30.0, 2000.0, " https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg");
 
             //DataManagement dm = new DataManagement(user);
 

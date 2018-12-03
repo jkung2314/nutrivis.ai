@@ -1,0 +1,30 @@
+For our testing, we utilized Travis CI for our build system. This automated
+build system will start with a clean build and install of our app after each
+push to any of our branches, with the master branch being the default branch. It
+should be noted that the build task also consists of a run of the android lint
+tool, which checks our code and XML files, and identifies any potential
+structural issues in our code, like deprecated packages or functional issues in
+the XML design. It helps to identify bugs and optimize for things like security
+and performance. It especially useful as it helped define our definition of done.
+
+After the clean build and install finishes without errors, our automated build
+system will proceed to run our test suite of unit and integration tests. Our
+test suite consists of unit and integration tests of our core API classes,
+which is the implementation of the Nutritionix API and the Google Vision API.
+We verified the integrity of our Google Vision API, and provided a test image to
+make sure that we were getting the correct response from the server. We did the
+same for the other by providing a test food to the Nutritionix API in the unit +
+integration tests to verify the correct response.
+
+Even though the app itself was not tested on device through automation, we had
+rigorous testing protocols that were performed manually. It should be noted that
+these tests were performed intermittently throughout the development of each unit.
+Here were our specific unit tests:
+  1. Uploading image and making sure it was stored in our storage system
+  2. Making sure servings size selector is functional
+  3. User login authentication
+  4. Firebase user creation, user data retrieval, and user data upload
+
+For our system test, we uploaded an image and made sure correct identification
+and nutrition data was returned, and remained in the view for each corresponding
+user.

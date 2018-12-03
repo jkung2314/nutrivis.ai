@@ -3049,7 +3049,6 @@ seafood
 calamary
 field_soybean
 meat
-citrus
 cut_of_veal
 spaghetti_squash
 icaco
@@ -3654,7 +3653,6 @@ grape
 West_Indian_cherry
 cappelletti
 roast_pork
-vegetable
 English_muffin
 grissino
 longanberry

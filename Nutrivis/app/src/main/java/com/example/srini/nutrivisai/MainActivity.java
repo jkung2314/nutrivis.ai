@@ -116,37 +116,34 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
     }
     /*use this method to start the async request*/
     private void runTask(){
+
+
         Intent i = getIntent();
         Food f;
 
         String path = i.getStringExtra("imagePath");
-        Log.e("__UIR AND PATH", path + "   " + i.getStringExtra("uri"));
+        Log.e("__Relative path", path + "   ");
 
 
         HashMap map = GVision.callGVis(path);
         Log.d("TAG", "Map of preds: " + Arrays.asList(map));
         String finalFood = ResolveFood.resolveFood(map, context);
         Log.d("TAG", "Final Food: " + finalFood);
-        AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
-        try {
-            String n = nutrition.get();
-            f = NutritionixParser.parse(n);
+//        AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
+//        try {
+//            String n = nutrition.get();
+//           // f = NutritionixParser.parse(n);
+//            f = new Food("Pizz",30.0, 2000.0, " https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg");
+//
+//            DataManagement dm = new DataManagement(mFirebaseUser);
+//            dm.uploadPhotoToStorage(f, path);
+//
+//
+//        } catch (Exception e ) {
+//
+//            e.printStackTrace();
+//        }
 
-
-
-
-
-             //f = new Food("test_food", 50.0, 70, "NOSTRING" );
-            DataManagement dm = new DataManagement(mFirebaseUser);
-            dm.uploadPhotoToStorage(f, path);
-
-        } catch (Exception e ) {
-
-            e.printStackTrace();
-            //Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
-        }
-            // e.printStackTrace(); // FOOD NOT IDENTIFIED
-            //Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
 
     }
     @Override
@@ -155,10 +152,31 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    @Override
+    protected void onRestart(){
+        super.onRestart();
 
+        Intent i = getIntent();
+        Log.e("____RESTART     ",  i.getExtras().keySet().toString());
+
+
+
+    }
     @Override
     protected void onResume() {
         super.onResume();
+        Log.e("____RESUME     ", "_______");
+        Intent i = getIntent();
+        Food f;
+
+        String foodStr = i.getStringExtra("newFood");
+        if (foodStr == null){
+            Log.e("__Resume food =", "NOt Found");
+            return;
+        }
+        Log.d("__Resume food = ", foodStr);
+
+
         CustomAdapter adapter = new CustomAdapter(this,foods);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

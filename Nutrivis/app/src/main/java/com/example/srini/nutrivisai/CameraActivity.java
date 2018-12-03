@@ -1,15 +1,20 @@
 package com.example.srini.nutrivisai;
 
+import android.app.Application;
 import android.graphics.Bitmap;
 import android.app.Activity;
 import android.content.Intent;
 import com.google.firebase.auth.FirebaseUser;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import java.io.File;
@@ -19,15 +24,18 @@ import java.net.ProtocolException;
 
 import java.text.SimpleDateFormat;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 
 
-public class CameraActivity extends Activity {
+public class CameraActivity extends AppCompatActivity{
 
     final static int REQUEST_CODE = 1;
     private ImageView image;
     private String mCurrentPhotoPath;
     private Intent takePictureIntent;
+    private FirebaseUser user;
     private String photoDBPath;
     public Uri photoUri = new Uri.Builder().build();
 
@@ -39,11 +47,11 @@ public class CameraActivity extends Activity {
 
         Bundle bundle = getIntent().getExtras();
 
-        FirebaseUser user = (FirebaseUser)bundle.get("user");
+       user = (FirebaseUser)bundle.get("user");
         Log.e("_______", user.getDisplayName());
-       // dm = new DataManagement(user);
 
         setContentView(R.layout.activity_camera);
+
         dispatchTakePictureIntent();
     }
 
@@ -56,25 +64,10 @@ public class CameraActivity extends Activity {
             image = (ImageView) findViewById(R.id.img);
             image.setImageBitmap(data);
 
-//            dm.uploadPhotoToStorage(mCurrentPhotoPath);
-//            NutritionixTask task = new NutritionixTask();
-//            try {
-//                task.getNutritionInfo("pizza");
-//                Toast.makeText(getApplicationContext(),"Image Uploaded " + task.getNutritionInfo("ass"),Toast.LENGTH_SHORT).show();
-//            }
-//        catch(MalformedURLException e){
-//
-//        }catch(ProtocolException e){
-//
-//        }catch(IOException e){
-//                Toast.makeText(getApplicationContext(),"Invalid Food Scanned",Toast.LENGTH_SHORT).show();
-//        }
-
-            Intent i = new Intent(getApplicationContext(),MainActivity.class); // wherever this needs to be redirected
-
-            i.putExtra("imagePath", mCurrentPhotoPath);
-            //Log.d("____PATH", mCurrentPhotoPath);
-            //i.putExtra("photoUri", photoUri);
+            // wherever this needs to be redirected
+            Intent i = new Intent(this, DataManagement.class);
+            i.putExtra("photoPath", mCurrentPhotoPath);
+            i.putExtra("user", user);
             startActivity(i);
 
         }

@@ -36,6 +36,10 @@
             android:name=".CameraActivity"
             android:label="@string/title_activity_camera"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DataManagement"
+            android:label="DataManagement"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -1,10 +1,15 @@
 package com.example.srini.nutrivisai;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import java.io.File;
 import java.util.*;
@@ -23,15 +28,30 @@ import com.google.firebase.storage.UploadTask;
 
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
-public class DataManagement extends Activity {
+public class DataManagement extends AppCompatActivity implements AsyncRequester {
     public String TAG = "__DATA_MGMT";
     private FirebaseFirestore db;
     private FirebaseUser user;
     public String uri;
+    private String photoPath;
 
-    DataManagement(FirebaseUser mUser) {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_datamgmt);
+
+        Bundle bundle = getIntent().getExtras();
+
+        this.user = (FirebaseUser)bundle.get("user");
+        Log.e("_______", user.getDisplayName());
+
         this.db = FirebaseFirestore.getInstance();
-        this.user = mUser;
+        photoPath = (String)bundle.get("photoPath");
+        if(photoPath != null){
+            uploadFood();
+        }
+
     }
 
 
@@ -42,29 +62,40 @@ public class DataManagement extends Activity {
         docRef.update("foods", FieldValue.arrayUnion(f.toString())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                getUserData(relPath );
-                Log.e("____TRINNER MAIN BINDLE VALS", f.getURL()+"   " +relPath);
+                //triggerMain(relPath, f);
+                //getUserData(relPath );
+                Intent in = new Intent( getApplicationContext(), Splash.class);
+
+                startActivity(in);
+
+               // Log.e("____TRIggER MAIN BuNDLE VALS", f.getURL()+"   " +relPath);
             }
         });
 
 
     }
-
-
-    public void triggerMain(String relPath, ArrayList<String> docs){
-
-
-            Intent in = new Intent( this, MainActivity.class);
-            in.putExtra("relPath", relPath);
-            in.putExtra("uri", uri);
-
-
-
-        in.putExtra("docs", docs);
-
+    @Override
+    public void onCompletedTask(Map m){
+        Intent in = new Intent( this, MainActivity.class);
+        in.putExtra("newFood", "NULL");
 
         startActivity(in);
     }
+    @Override
+    public void onCompletedTask(String f){
+        Intent in = new Intent( this, MainActivity.class);
+        in.putExtra("newFood", f);
+
+        startActivity(in);
+    }
+//    public void triggerMain(String relPath, ArrayList<String> docs){
+//            Intent in = new Intent( this, MainActivity.class);
+//            in.putExtra("relPath", relPath);
+//            in.putExtra("uri", uri);
+//            in.putExtra("docs", docs);
+//            startActivity(in);
+//    }
+
 
 
 
@@ -79,7 +110,7 @@ public class DataManagement extends Activity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.get("foods"));
-                        triggerMain(relPath, (ArrayList<String>) document.get("foods"));
+                       // triggerMain(relPath, (ArrayList<String>) document.get("foods"));
 
                     } else {
                         Log.e(TAG, "No such document");
@@ -91,7 +122,28 @@ public class DataManagement extends Activity {
             }
         });
     }
+    private void uploadFood(){
+        HashMap map = GVision.callGVis(photoPath);
+        Log.d("TAG", "Map of preds: " + Arrays.asList(map));
+        String finalFood = ResolveFood.resolveFood(map, this);
+        Log.d("TAG", "Final Food: " + finalFood);
+        AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
+        try {
+            String n = nutrition.get();
+            // f = NutritionixParser.parse(n);
+            Food f = new Food("Pizz",30.0, 2000.0, " https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg");
 
+            //DataManagement dm = new DataManagement(user);
+
+           // dm.uploadPhotoToStorage(f, path);
+            uploadPhotoToStorage(f, photoPath);
+
+
+        } catch (Exception e ) {
+
+            e.printStackTrace();
+        }
+    }
 
     private void getUri(StorageReference storageRef, final Food f, final String relPath) {
 

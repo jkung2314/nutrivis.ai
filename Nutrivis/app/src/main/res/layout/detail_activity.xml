@@ -35,25 +35,6 @@
             android:src="@drawable/eye"
             />
 
-        <ImageButton
-            android:id="@+id/signout"
-            style="@android:style/Widget.DeviceDefault.ImageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="500dp"
-            android:adjustViewBounds="true"
-            android:background="@color/jet"
-
-
-            android:maxWidth="25dp"
-            android:maxHeight="25dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/logoutrightone"
-
-            />
-
     </android.support.v7.widget.Toolbar>
 
     <TextView

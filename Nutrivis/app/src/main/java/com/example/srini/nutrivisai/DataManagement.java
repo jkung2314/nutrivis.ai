@@ -23,7 +23,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
 public class DataManagement extends AppCompatActivity implements AsyncRequester {
     public String TAG = "__DATA_MGMT";
     private FirebaseFirestore db;
@@ -88,7 +87,6 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
             String n = nutrition.get();
             Food f = NutritionixParser.parse(n);
             Log.e("TAG", f.toString());
-
             uploadPhotoToStorage(f, photoPath);
         } catch (Exception e ) {
             e.printStackTrace();

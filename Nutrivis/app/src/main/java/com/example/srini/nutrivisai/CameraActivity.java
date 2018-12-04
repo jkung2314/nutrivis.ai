@@ -1,33 +1,20 @@
 package com.example.srini.nutrivisai;
 
-import android.app.Application;
 import android.graphics.Bitmap;
-import android.app.Activity;
 import android.content.Intent;
 import com.google.firebase.auth.FirebaseUser;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-
 import java.text.SimpleDateFormat;
-
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
-
 
 public class CameraActivity extends AppCompatActivity{
 
@@ -38,8 +25,6 @@ public class CameraActivity extends AppCompatActivity{
     private FirebaseUser user;
     private String photoDBPath;
     public Uri photoUri = new Uri.Builder().build();
-
-  //  private DataManagement dm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,37 +102,6 @@ public class CameraActivity extends AppCompatActivity{
         this.sendBroadcast(mediaScanIntent);
     }
 
-   /* private void uploadPhotoToStorage() {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
-        Uri file = Uri.fromFile(new File(mCurrentPhotoPath));
-
-        final StorageReference uploadRef = storageRef.child("images/"+file.getLastPathSegment());
-        UploadTask uploadTask = uploadRef.putFile(file);
-        photoDBPath = "images/"+file.getLastPathSegment();
-
-        // Register observers to listen for when the download is done or if it fails
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.d("__FAIL", "NO PHOTO WAS UPLOADED");
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.d("__SUCCESS", "PHOTO " + photoDBPath +  " WAS UPLOADED!");
-            }
-        });
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        try {
-            Log.d("__RESPONSE", GVision.callGVis(mCurrentPhotoPath).toString());
-        } catch (Exception ex){
-            Log.d("__RESPONSE_FAIL", ex.toString());
-        }
-        */
     }
 
 

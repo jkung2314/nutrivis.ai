@@ -1,6 +1,5 @@
 package com.example.srini.nutrivisai;
 
-import java.util.*;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -96,15 +94,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
     }
-    //this method is called when asynctask is completed
-    public void onCompletedTask(String str){
-        //TODO do something with the string
-        //Log.e("nutri call",  str);
-    }
-    public void onCompletedTask(Map responseVals){
-        //TODO do something with the string
-        Log.d("___QUERY_RESP",  responseVals.toString());
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,7 +101,6 @@ public class MainActivity extends AppCompatActivity{
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
 
     @Override
     protected void onResume() {
@@ -144,6 +132,7 @@ public class MainActivity extends AppCompatActivity{
         Log.d("__Resume food = ", foodStr);
 
         CustomAdapter adapter = new CustomAdapter(this, foods);
+
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

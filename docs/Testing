@@ -120,6 +120,12 @@ Unit Tests
   reached some edge case I missed. Although this isn't what you'd like in a professional 
   setting, I was new to thorough testing for most of the quarter. I know better now but for the
   time being, it worked to get the product out.
+  
+  Hooshing: The nutritionix async task was initially tested manually. Simple generic foods like
+  "pasta" and "orange" were used as this would be the type of output given by the Google Vision
+  class. The servings field was tested manually with the null string as well as valid positive inputs and 
+  invalid negative inputs. Signout was also tested manually.
+  
 
 
 

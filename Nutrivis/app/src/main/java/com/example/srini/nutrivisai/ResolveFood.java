@@ -7,12 +7,10 @@ import android.content.res.Resources;
 import android.util.Log;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -68,7 +66,6 @@ public class ResolveFood {
     private boolean isFood(String food) {
         return validFoods.containsKey(food);
     }
-
     private static HashMap<String, Float> sortByValues(HashMap<String, Float> map) {
         List list = new LinkedList(map.entrySet());
         Collections.sort(list, new Comparator() {

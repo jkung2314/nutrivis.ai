@@ -76,7 +76,7 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
 
         ResolveFood rf = new ResolveFood(this);
         String finalFood = rf.resolveFood(map);
-        if (finalFood == null) {
+        if (finalFood.equals("Food Not Identified")) {
             Log.d("TAG", "Final Food not identified");
             Toast.makeText(this, "Food Not Identified", Toast.LENGTH_LONG).show();
             Intent in = new Intent( getApplicationContext(), Splash.class);

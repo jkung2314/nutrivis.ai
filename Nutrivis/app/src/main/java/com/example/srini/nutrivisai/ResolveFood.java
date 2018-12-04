@@ -60,7 +60,7 @@ public class ResolveFood {
                 continue;
             }
         }
-        return null;
+        return "Food Not Identified";
     }
 
     private boolean isFood(String food) {
@@ -82,3 +82,4 @@ public class ResolveFood {
         return sortedHashMap;
     }
 }
+

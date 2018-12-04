@@ -30,6 +30,10 @@ public class MyTextWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
+        if (s.toString().length() > 0 && Float.parseFloat(s.toString()) < 0 ){
+            s.replace(0, 0, "1.0");
+        }
+
         detailPointer.updateServings();
     }
         //fat.setText(Float.toString(baseFat * Float.parseFloat(servings.getText().toString())) + "g");

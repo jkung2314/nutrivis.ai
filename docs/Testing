@@ -84,3 +84,17 @@ Unit Tests
     reference, these tests can be found at: 
     nutrivis.ai/Nutrivis/app/src/test/java/com/example/srini/nutrivisai
     Along with this, I helped perform testing on the usability of the overall app.
+
+    Aravind: I tested the Camera integration, which involved testing both the UI and backend. 
+    	This was done in CameraActivitiy.java. The equivalency class for the CameraActivity 
+	was just making sure that it was being called during the correct time.The test 
+	cases verified that it was being called correctly, and that a photo can be taken
+	and stored. I also worked on testing the validation of foods that were identified by 
+	Google Vision API. The equivalency class for this was to make sure I received 
+	a map of predictions from the Google Vision API. The test case for this included 
+	making sure that I was able to validate that a prediction was inside the text file.
+	I also integrated the entire app by connecting the separate components,
+	so I tested a lot to make sure the flow inside the app was correct. The 
+	equivalency classes for this was just standard input that was being passed 
+	around from one class/activity to another. The test cases for this included 
+	just making sure the app was flowing well from end to end. 

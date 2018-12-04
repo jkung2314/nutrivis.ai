@@ -109,3 +109,20 @@ Unit Tests
   ensuring the proper Food object was created and the information corresponded. Incorrect
   arguments were also passed and it was noted that the proper exception was thrown. 
 
+  Daniel: Most of my testing was involved with Firebase. One of the real holdups was user 
+  creation. Firebase makes it easy to delete a user so manual testing consisted of me wiping 
+  all users and seeing if the app worked even when no user was found. This would tell the app 
+  to create a user before continuing. Manual testing was done to make sure the app functioned 
+  similarly for new users. The methods in the DataManagement class was done similarly, I 
+  could wipe user data and try with the emulator's camera and Aravind's camera which had much 
+  higher resolution.
+  The majority of bugs in my code was found by other team members who would notify me if they 
+  reached some edge case I missed. Although this isn't what you'd like in a professional 
+  setting, I was new to thorough testing for most of the quarter. I know better now but for the
+  time being, it worked to get the product out.
+
+
+
+
+
+

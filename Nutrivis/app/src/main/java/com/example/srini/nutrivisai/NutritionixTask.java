@@ -1,16 +1,9 @@
 package com.example.srini.nutrivisai;
 import java.lang.String;
-//import java.util.*;
-//import java.lang.Object;
 import android.os.AsyncTask;
-import android.util.Log;
-
 import java.net.*;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
-import java.util.Arrays;
-import java.util.HashMap;
-
 
 public class NutritionixTask {
 

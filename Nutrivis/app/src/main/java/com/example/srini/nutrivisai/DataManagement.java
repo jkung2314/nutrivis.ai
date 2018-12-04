@@ -1,7 +1,5 @@
 package com.example.srini.nutrivisai;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -9,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 
 import java.io.File;
 import java.util.*;
@@ -25,8 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class DataManagement extends AppCompatActivity implements AsyncRequester {
     public String TAG = "__DATA_MGMT";

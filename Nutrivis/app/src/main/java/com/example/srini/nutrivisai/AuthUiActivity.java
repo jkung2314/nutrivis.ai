@@ -4,14 +4,9 @@ import android.os.Bundle;
 import java.util.Arrays;
 
 import android.util.Log;
-
-
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
 import android.content.Intent;
 import android.support.annotation.MainThread;
-
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;

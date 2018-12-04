@@ -51,7 +51,6 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
         docRef.update("foods", FieldValue.arrayUnion(f.toString())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-
                 Intent in = new Intent( getApplicationContext(), Splash.class);
                 startActivity(in);
             }
@@ -74,13 +73,16 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
     private void uploadFood(){
         HashMap map = GVision.callGVis(photoPath);
         Log.d("TAG", "Map of preds: " + Arrays.asList(map));
-        String finalFood = ResolveFood.resolveFood(map, this);
+
+        ResolveFood rf = new ResolveFood(this);
+        String finalFood = rf.resolveFood(map);
         Log.d("TAG", "Final Food: " + finalFood);
         AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
         try {
             String n = nutrition.get();
             Food f = NutritionixParser.parse(n);
             Log.e("TAG", f.toString());
+
             uploadPhotoToStorage(f, photoPath);
         } catch (Exception e ) {
             e.printStackTrace();

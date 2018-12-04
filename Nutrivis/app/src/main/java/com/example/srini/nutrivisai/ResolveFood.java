@@ -66,7 +66,7 @@ public class ResolveFood {
                 continue;
             }
         }
-        return "Food not identified";
+        return null;
     }
 
     private boolean isFood(String food) {

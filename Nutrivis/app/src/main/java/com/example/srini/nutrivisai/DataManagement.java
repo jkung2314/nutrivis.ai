@@ -77,8 +77,10 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
 
         ResolveFood rf = new ResolveFood(this);
         String finalFood = rf.resolveFood(map);
-        Log.d("TAG", "Final Food: " + finalFood);
-        Toast.makeText(this, finalFood, Toast.LENGTH_LONG).show();
+        if (finalFood == null) {
+            Log.d("TAG", "Final Food not identified");
+            Toast.makeText(this, "Food Not Identified", Toast.LENGTH_LONG).show();
+        }
         AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
         try {
             String n = nutrition.get();

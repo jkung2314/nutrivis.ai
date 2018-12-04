@@ -2,9 +2,7 @@
 
 Consisting of exerpts from [this page](https://github.com/raywenderlich/java-style-guide). When in doubt, refer to this page.
 
-<aside class="warning">
-You must replace `meowmeowmeow` with your personal API key.
-</aside>
+A general note: `BE VERY FUCKING CAREFUL WHEN MESSING WITH GRADLE`
 
 ### Brace Style
 

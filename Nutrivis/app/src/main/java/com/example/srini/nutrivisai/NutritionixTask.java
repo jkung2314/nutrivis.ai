@@ -51,7 +51,6 @@ class NutritionixTaskCall extends AsyncTask<String, Void, String>{
     }
 
     protected String doInBackground(String... foods){
-
         try{
             NutritionixTask task = new NutritionixTask();
             String result = task.getNutritionInfo(foods);

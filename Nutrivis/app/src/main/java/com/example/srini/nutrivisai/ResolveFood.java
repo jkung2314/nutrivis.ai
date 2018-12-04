@@ -1,11 +1,15 @@
 package com.example.srini.nutrivisai;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,16 +24,43 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-public class ResolveFood {
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
-    public static String resolveFood(HashMap<String, Float> map, Context context) {
+public class ResolveFood {
+    private Map<String, Integer> validFoods;
+    ResolveFood(Context con){
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(con.getAssets().open("foods.txt")));
+
+            String line;
+            validFoods = new HashMap<String, Integer>();// it should be static - whereever you define
+            int i = 0;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("=")) {
+                    String[] strings = line.split("=");
+                    validFoods.put(strings[0], Integer.parseInt(strings[1]));
+                    i++;
+                }
+            }
+            log("Num of foods = " + i);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+    }
+    public void log(String m){
+        Log.d("___resolve", m);
+    }
+    public String resolveFood(HashMap<String, Float> map) {
         HashMap<String, Float> newMap = sortByValues(map);
 
         ArrayList list = new ArrayList(newMap.keySet());
         for (int i = list.size() - 1; i >= 0; i--) {
             String key = (String) list.get(i);
-            Log.d("TAG", "KeyLISTSET: " + key + ", Value: " + newMap.get(key));
-            if(isFood(key, context)) {
+            log( "KeyLISTSET: " + key + ", Value: " + newMap.get(key));
+            if(isFood(key)) {
                 return key;
             } else {
                 continue;
@@ -39,35 +70,10 @@ public class ResolveFood {
         return "Food not identified";
     }
 
-    private static boolean isFood(String food, Context context) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(
-                    new InputStreamReader(context.getAssets().open("foods.txt")));
+    private boolean isFood(String food) {
 
-            // do reading, usually loop until end of file reading
-            String mLine;
-            while ((mLine = reader.readLine()) != null) {
-                // Log.d("TAG", "INPUTLINE: " + mLine);
-                if (food.equals(mLine)) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return false;
+        return validFoods.containsKey(food);
     }
-
-
 
     private static HashMap<String, Float> sortByValues(HashMap<String, Float> map) {
         List list = new LinkedList(map.entrySet());
@@ -84,6 +90,5 @@ public class ResolveFood {
         }
         return sortedHashMap;
     }
-
 
 }

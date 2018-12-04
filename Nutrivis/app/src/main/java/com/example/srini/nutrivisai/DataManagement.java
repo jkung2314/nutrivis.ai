@@ -1,7 +1,5 @@
 package com.example.srini.nutrivisai;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -9,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 
 import java.io.File;
 import java.util.*;
@@ -19,7 +16,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -62,13 +58,8 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
         docRef.update("foods", FieldValue.arrayUnion(f.toString())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                //triggerMain(relPath, f);
-                //getUserData(relPath );
                 Intent in = new Intent( getApplicationContext(), Splash.class);
-
                 startActivity(in);
-
-               // Log.e("____TRIggER MAIN BuNDLE VALS", f.getURL()+"   " +relPath);
             }
         });
 
@@ -88,44 +79,13 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
 
         startActivity(in);
     }
-//    public void triggerMain(String relPath, ArrayList<String> docs){
-//            Intent in = new Intent( this, MainActivity.class);
-//            in.putExtra("relPath", relPath);
-//            in.putExtra("uri", uri);
-//            in.putExtra("docs", docs);
-//            startActivity(in);
-//    }
 
-
-
-
-    public void getUserData( final String relPath) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        final DocumentReference docRef = db.collection("userData").document(user.getUid());
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.get("foods"));
-                       // triggerMain(relPath, (ArrayList<String>) document.get("foods"));
-
-                    } else {
-                        Log.e(TAG, "No such document");
-
-                    }
-                } else {
-                    Log.e(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-    }
     private void uploadFood(){
         HashMap map = GVision.callGVis(photoPath);
         Log.d("TAG", "Map of preds: " + Arrays.asList(map));
-        String finalFood = ResolveFood.resolveFood(map, this);
+
+        ResolveFood rf = new ResolveFood(this);
+        String finalFood = rf.resolveFood(map);
         Log.d("TAG", "Final Food: " + finalFood);
         AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
         try {
@@ -133,9 +93,6 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
             // f = NutritionixParser.parse(n);
             Food f = new Food("Pizz",30.0, 2000.0, " https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg");
 
-            //DataManagement dm = new DataManagement(user);
-
-           // dm.uploadPhotoToStorage(f, path);
             uploadPhotoToStorage(f, photoPath);
 
 

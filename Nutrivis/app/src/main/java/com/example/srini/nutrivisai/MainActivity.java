@@ -127,8 +127,8 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
         HashMap map = GVision.callGVis(path);
         Log.d("TAG", "Map of preds: " + Arrays.asList(map));
-        String finalFood = ResolveFood.resolveFood(map, context);
-        Log.d("TAG", "Final Food: " + finalFood);
+       // String finalFood = ResolveFood.resolveFood(map, context);
+       // Log.d("TAG", "Final Food: " + finalFood);
 //        AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
 //        try {
 //            String n = nutrition.get();

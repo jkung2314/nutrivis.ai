@@ -106,5 +106,6 @@ Unit Tests
   the Db and ensured it was display in the form we had discussed. DownloadImageTask is 
   linked with DetailActivity and Mainactivity so it was tested when the said UIActivities 
   were tested. The food class was tested manually by passing the proper arguments and 
-  ensuring the proper Food object was created and the information corresponded.
+  ensuring the proper Food object was created and the information corresponded. Incorrect
+  arguments were also passed and it was noted that the proper exception was thrown. 
 

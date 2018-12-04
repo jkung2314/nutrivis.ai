@@ -55,11 +55,13 @@ public class ResolveFood {
             String key = (String) list.get(i);
             log( "KeyLISTSET: " + key + ", Value: " + newMap.get(key));
             if(isFood(key)) {
+                log( "___FOOD FOUND ==" + key);
                 return key;
             } else {
                 continue;
             }
         }
+        log( "___FOOD FOUND == null");
         return "Food Not Identified";
     }
 

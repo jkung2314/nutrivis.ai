@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
+
 import java.io.File;
 import java.util.*;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -60,7 +62,6 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
     public void onCompletedTask(Map m){
         Intent in = new Intent( this, MainActivity.class);
         in.putExtra("newFood", "NULL");
-
         startActivity(in);
     }
     @Override
@@ -77,6 +78,7 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
         ResolveFood rf = new ResolveFood(this);
         String finalFood = rf.resolveFood(map);
         Log.d("TAG", "Final Food: " + finalFood);
+        Toast.makeText(this, finalFood, Toast.LENGTH_LONG).show();
         AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
         try {
             String n = nutrition.get();

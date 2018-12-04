@@ -45,10 +45,9 @@ public class ResolveFood {
             reader = new BufferedReader(
                     new InputStreamReader(context.getAssets().open("foods.txt")));
 
-            // do reading, usually loop until end of file reading
+            // Do reading, usually loop until end of file reading
             String mLine;
             while ((mLine = reader.readLine()) != null) {
-                // Log.d("TAG", "INPUTLINE: " + mLine);
                 if (food.equals(mLine)) {
                     return true;
                 }
@@ -67,8 +66,6 @@ public class ResolveFood {
         return false;
     }
 
-
-
     private static HashMap<String, Float> sortByValues(HashMap<String, Float> map) {
         List list = new LinkedList(map.entrySet());
         Collections.sort(list, new Comparator() {
@@ -84,6 +81,5 @@ public class ResolveFood {
         }
         return sortedHashMap;
     }
-
 
 }

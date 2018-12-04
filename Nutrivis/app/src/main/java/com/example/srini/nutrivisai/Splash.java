@@ -37,7 +37,6 @@ public class Splash extends AppCompatActivity {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
         if (mFirebaseUser == null) {
-            //Not signed in, launch the Sign In Activity
             startActivity(new Intent(this, AuthUiActivity.class));
             finish();
             return;
@@ -62,7 +61,6 @@ public class Splash extends AppCompatActivity {
         docref.set(data).addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                // Try again now that the user has been created
                 getUserData(mFirebaseUser);
             }
             });

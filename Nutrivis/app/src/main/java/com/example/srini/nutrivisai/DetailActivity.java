@@ -1,47 +1,19 @@
 package com.example.srini.nutrivisai;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import android.text.TextWatcher;
-import android.text.Editable;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-//import android.app.Fragment;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
-/*This is the class of the Activity that gets called when the user selects
-an item from the list.
- */
 
 public class DetailActivity extends AppCompatActivity {
     private final Context context = this;
-/*
-    private void updateServings(int fatVal, TextView fatView, int calVal, TextView calView, int servings){
-        fatView.setText(fatVal * servings);
-        calView.setText(calVal * servings);
-        //UPDATE THE DATAB
-    }*/
+
     private String idUrl;
-    //private SharedPreferences sharedPref;
     float baseFat, baseCal;
     private float servings;
     public void updateServings(){
@@ -54,7 +26,6 @@ public class DetailActivity extends AppCompatActivity {
             fat.setText(Float.toString(baseFat * servings) + "g");
             cal.setText(Float.toString(baseCal * servings) + "g");
         }
-        //cal.setText(Float.toString(baseCal * Float.parseFloat(servings.getText().toString())) + "g");
     }
 
     @Override
@@ -69,9 +40,7 @@ public class DetailActivity extends AppCompatActivity {
         String cal = i.getStringExtra("cal");
         String scanned = i.getStringExtra("date");
         String servingsValue = i.getStringExtra("servings");
-        //grab url to use as id to store the data
         idUrl = url;
-        //store the values for 1 serving. drop the "g" at the end
         baseFat = Float.parseFloat(fat.substring(0, fat.length()-1));
         baseCal = Float.parseFloat(cal.substring(0, cal.length()-1));
         servings = Float.parseFloat(servingsValue);
@@ -82,19 +51,11 @@ public class DetailActivity extends AppCompatActivity {
         TextView fatContent = (TextView) findViewById(R.id.textView2);
         ImageView imageView = (ImageView) findViewById(R.id.imageView);
         EditText servingsView =  findViewById(R.id.servingsInput);
-
-        //servingsView.setText(servingsValue);
-        //String fatStr = fatContent.getText().toString();
-        //String calStr = calorieCount.getText().toString();
-        //Log.e("same", calStr.substring(0, calStr.length()-1) + " " + fatStr.substring(0, fatStr.length()-1));
         servingsView.addTextChangedListener(new MyTextWatcher(this));
 
         new DownloadImageTask(imageView).execute(url);
         food.setText(name);
-        //calorieCount.setText(cal);
         date.setText(scanned);
-        //fatContent.setText(fat);
-        //updateServings(Integer.parseInt(fat), fatContent, Integer.parseInt(cal), calorieCount, Integer.parseInt(servingsValue));
     }
 
     @Override

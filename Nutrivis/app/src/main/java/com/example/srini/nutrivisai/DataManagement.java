@@ -62,13 +62,8 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
         docRef.update("foods", FieldValue.arrayUnion(f.toString())).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                //triggerMain(relPath, f);
-                //getUserData(relPath );
                 Intent in = new Intent( getApplicationContext(), Splash.class);
-
                 startActivity(in);
-
-               // Log.e("____TRIggER MAIN BuNDLE VALS", f.getURL()+"   " +relPath);
             }
         });
 
@@ -88,16 +83,6 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
 
         startActivity(in);
     }
-//    public void triggerMain(String relPath, ArrayList<String> docs){
-//            Intent in = new Intent( this, MainActivity.class);
-//            in.putExtra("relPath", relPath);
-//            in.putExtra("uri", uri);
-//            in.putExtra("docs", docs);
-//            startActivity(in);
-//    }
-
-
-
 
     public void getUserData( final String relPath) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -110,7 +95,6 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.get("foods"));
-                       // triggerMain(relPath, (ArrayList<String>) document.get("foods"));
 
                     } else {
                         Log.e(TAG, "No such document");
@@ -132,11 +116,6 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
             String n = nutrition.get();
             Food f = NutritionixParser.parse(n);
             Log.e("TAG", f.toString());
-            //Food f = new Food("Pizz",30.0, 2000.0, " https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg");
-
-            //DataManagement dm = new DataManagement(user);
-
-           // dm.uploadPhotoToStorage(f, path);
             uploadPhotoToStorage(f, photoPath);
 
 
@@ -157,16 +136,6 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
             @Override
             public void onSuccess(Uri photoUri) {
                 Log.d(TAG, "URL: " + photoUri.toString());
-                // add values to food map if empty, FOR TESTING
-                // eventually, this will be replaced with full map from NX
-//                if (food.isEmpty()) {
-//                    food.put("Fat", "0 grams");
-//                    food.put("Sodium", "0 gram");
-//                    food.put("Carbs", "0 grams");
-//                    food.put("Name", "test pic");
-//                }
-//                food.put("uri", photoUri.toString());
-//                // push food with new uri
                 f.setUrl(photoUri.toString());
                 pushFood(f, relPath);
             }
@@ -175,7 +144,6 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
     }
 
     public void uploadPhotoToStorage(final Food f, String mCurrentPhotoPath) {
-//        mCurrentPhotoPath = "/Users/daniel/tmp/nutrivis.ai/Nutrivis/app/src/main/java/com/example/srini/nutrivisai/food.jpeg";
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
         final StorageReference storageRef = storage.getReference();
@@ -197,18 +165,6 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
                 getUri(uploadRef, f, photoDBPath);
             }
         });
-
-/* GVIS call not implemented
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        try {
-            Log.d("__RESPONSE", GVision.callGVis(mCurrentPhotoPath).toString());
-        } catch (Exception ex) {
-            Log.d("__RESPONSE_FAIL", ex.toString());
-        }
-*/
-
     }
 }
 

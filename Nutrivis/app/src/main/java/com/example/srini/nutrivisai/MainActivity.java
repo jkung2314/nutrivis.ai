@@ -1,12 +1,9 @@
 package com.example.srini.nutrivisai;
 
-
-import java.io.File;
 import java.util.*;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 import java.util.ArrayList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,9 +31,6 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
-
-       //final ArrayList<Food> foods= new ArrayList<Food>();
-
 
         try{
             Bundle extras =  getIntent().getExtras();
@@ -105,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         });
         runTask();
     }
-    //this method is called when asynctask is completed
+
     public void onCompletedTask(String str){
         //TODO do something with the string
         //Log.e("nutri call",  str);
@@ -114,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         //TODO do something with the string
         Log.d("___QUERY_RESP",  responseVals.toString());
     }
-    /*use this method to start the async request*/
+
     private void runTask(){
 
 
@@ -129,23 +122,8 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
         Log.d("TAG", "Map of preds: " + Arrays.asList(map));
         String finalFood = ResolveFood.resolveFood(map, context);
         Log.d("TAG", "Final Food: " + finalFood);
-//        AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
-//        try {
-//            String n = nutrition.get();
-//           // f = NutritionixParser.parse(n);
-//            f = new Food("Pizz",30.0, 2000.0, " https://cdn.cnn.com/cnnnext/dam/assets/171027052520-processed-foods-exlarge-tease.jpg");
-//
-//            DataManagement dm = new DataManagement(mFirebaseUser);
-//            dm.uploadPhotoToStorage(f, path);
-//
-//
-//        } catch (Exception e ) {
-//
-//            e.printStackTrace();
-//        }
-
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -158,8 +136,6 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
 
         Intent i = getIntent();
         Log.e("____RESTART     ",  i.getExtras().keySet().toString());
-
-
 
     }
     @Override
@@ -191,8 +167,6 @@ public class MainActivity extends AppCompatActivity implements AsyncRequester{
             return;
         }
         Log.d("__Resume food = ", foodStr);
-
-
 
         CustomAdapter adapter = new CustomAdapter(this,foods);
         listView.setAdapter(adapter);

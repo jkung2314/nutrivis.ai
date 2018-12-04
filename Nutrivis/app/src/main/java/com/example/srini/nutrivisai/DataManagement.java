@@ -80,6 +80,8 @@ public class DataManagement extends AppCompatActivity implements AsyncRequester 
         if (finalFood == null) {
             Log.d("TAG", "Final Food not identified");
             Toast.makeText(this, "Food Not Identified", Toast.LENGTH_LONG).show();
+            Intent in = new Intent( getApplicationContext(), Splash.class);
+            startActivity(in);
         }
         AsyncTask<String, Void, String> nutrition = new NutritionixTaskCall(this).execute(finalFood);
         try {
